@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Renan Carvalho JavaScript blog. - JavasCript e tudo mais.</title>
+    <meta name="description" content="Renan Carvalho Js" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Renan Carvalho JavaScript blog.</span>
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2014-06-04">04 Jun 2014</time>
+        	
+        		on
+	        	
+	        	    dicas
+	        	
+	        	    de
+	        	
+	        	    backbone
+	        	
+	        
+       	</span>
+
+        <h1 class="post-title">5 Dicas para evitar cabelos brancos ao usar Backbone</h1>
+
+        <section class="post-content">
+            <p>Se você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Este post é para você.</p>
+
+<p>A idéia aqui é mostrar alguns tipos de códigos que se você evitar em suas aplicações, seu código certamente trará menos problemas, e será mais fácil de manter.</p>
+
+<h4>1 - Evite o máximo possível fazer requisições ajax que não sejam através do Model.</h4>
+
+<p>O que eu quis dizer com isso?</p>
+
+<p><img src="http://i.imgur.com/B4IVNL6.png" alt="Ajax"></p>
+
+<p>Primeiro de tudo é necessário entender, que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição.O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica que:</p>
+
+<ul>
+<li>Para salvar algo no server, o verbo correto é o <code>POST</code></li>
+<li>Para retornar algo do server, o ver correto é o <code>GET</code></li>
+<li>Para alterar algo no server, o verbo correto é o <code>PUT</code></li>
+<li>Para deletar algo do server, o verbo correto é o <code>DELETE</code><br></li>
+</ul>
+
+<p>Dentro do conceito estrutural do Backbone, esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus metodos sejam parecidos com estes.</p>
+
+<p><img src="http://i.imgur.com/m3ypX5r.png" alt="model.fetch()"></p>
+
+<p>Muito menos linha de código com o mesmo resultado.</p>
+
+<p>Use:</p>
+
+<ul>
+<li><code>model.save()</code>, para <code>post</code>.</li>
+<li><code>model.fetch()</code>, para <code>get</code>.</li>
+<li><code>model.destroy()</code>, para delete.</li>
+<li><code>model.save()</code>, para <code>put</code>.(Se o Model estiver com o atributo id preenchido, o Backbone automaticamente entende como uma requisição de alteração, por isso <code>put</code>.</li>
+</ul>
+
+<h4>2 - Sua View não pode ser dependente de callback</h4>
+
+<p>É mais elegante para sua View, reagir de acordo com um evento disparado pelo Model. E também é mais elegante para o seu Model, não ter funções de callbacks, quando não necessário.</p>
+
+<p>Ruim :(</p>
+
+<p><img src="http://i.imgur.com/ozoPYIq.png" alt="Render ruim"></p>
+
+<p>Melhor assim.</p>
+
+<p><img src="http://i.imgur.com/Nlym7yZ.png" alt="escutando eventos"></p>
+
+<blockquote>
+<p>Para mais informações sobre eventos disparados pelo Model, <a href="http://backbonejs.org/#Events">clique aqui.</a></p>
+</blockquote>
+
+<p>Não importa quando ou como o Model fará a requisição, de qualquer forma suas functions serão chamadas.
+Ficou menos complexo e mais organizado e alguém discorda?</p>
+
+<h4>3 - Views não controlam dados</h4>
+
+<p>As regras de domínio de sua aplicação(client-side), é de responsabilidade do Model e não da View, se você se deparou escrevendo um código em que sua View manipula algum dado, pare, respire fundo e pense.</p>
+
+<p><div>
+    <pre><code class='coffee'>ola:-&gt;</code></pre>
+  </div></p>
+
+<p>Views devem simplesmente refletir e reagir de acordo com o que está no Model.</p>
+
+<h4>4 - Isole sua interface ao integrar com API&#39;s terceiras</h4>
+
+<p>Se sua aplicação precisa integrar com aplicações terceiras, utilize a function <code>parse</code> do Backbone para isolar sua interface de qualquer mudança server-side.</p>
+
+<p>exemplo:</p>
+
+<p>Imagine que as informações de um cliente venham de uma API que não seja implementada por voçê ou pelo seu time. E suponhamos que seu Model tenha os atributos: Nome,Idade,Sexo,Estado. E chegue esse Json no seu Model.</p>
+
+<p><div>
+    <pre><code class='coffee'>{Nome:&#39;Renan Carvalho&#39;, Idade: 25, Sexo: &#39;Masculino&#39;, Estado:&#39;Rio de Janeiro&#39;}</code></pre>
+  </div></p>
+
+<p>Ao fazer o bind do Model com a View, seu template deverá esperar pelos mesmo atributos do Model, certo? certíssimo.</p>
+
+<p>O que aconteceria se a APi mudasse, e retornasse o Json da seguinte forma?</p>
+
+<p><div>
+    <pre><code class='coffee'>{nmCliente:&#39;Renan Carvalho&#39;, dtNascimento:&#39;25/10/1988&#39;, Sexo:&#39;Masculino&#39;, UfCliente:&#39;RJ&#39;}</code></pre>
+  </div></p>
+
+<p>Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes(Nome != nmCliente).E Você certamente teria que mudar seu arquivo de template para que seua View continue funcionando.</p>
+
+<p>Para resolver esse problema, não é necessário mudar os atributos default do seu Model e nem nada na View, apenas implemente o método <code>parse</code> no seu Model e faça com que os campos retornados pelo server, sejam atualizados no seu Model de acordo com sua nomenclatura.</p>
+
+<p><div>
+    <pre><code class='coffee'></code></pre>
+  </div></p>
+
+<p>Bom isso hein...</p>
+
+<h4>5 - View não sabem e nem devem saber de nada.</h4>
+
+<p>Evite que sua View faça validações, ela não sabe de nada...</p>
+
+<p>Código ruim:</p>
+
+<p><div>
+    <pre><code class='coffee'></code></pre>
+  </div></p>
+
+<p>Código bom:</p>
+
+<p><div>
+    <pre><code class='coffee'></code></pre>
+  </div></p>
+
+<h4>Conclusão</h4>
+
+<p>Todas as dicas que mencionei acima (exceto a número 4), nada mais é do que a própria convenção do Backbone. Se você realmente se preocupa com a qualidade do seu código, vale apenas estudar mais afundo o funcionamento do framework e algumas convenções, isso vale pra qualquer outro framework. Geralmente alguns dessas implementações &#39;ruims&#39; são porque o desenvolvedor não conhece, o funcionamento do framework e resolve o problema usando Jquery, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC, ou MV(alguma coisa).   </p>
+
+<p>Seguindo esses passos, menos cabelos brancos nós temos.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href="/"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Renan Carvalho </h4>
+                    	<!-- Author Bio -->
+                    	<p> 
+                    		Começou a desenvolver software com 17 anos, e trabalha a 2 anos somente com frameworks javascript.
+                            Surfista e músico frustrado e um adorador de cerveja.
+                    	</p>
+                    </article>
+                </section>                
+            
+
+            <section class="share">
+                <h4>Compartilhe</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=5 Dicas para evitar cabelos brancos ao usar Backbone&amp;url=wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="/">Renan Carvalho JavaScript blog.</a> &copy;  &bull; All rights reserved.</section>
+            
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Renan Carvalho JavaScript blog.</title>
+    <link>wwww.rcarvalhojs.com</link>
+    <description>JavasCript e tudo mais.</description>
+    <pubDate>Wed, 04 Jun 2014 12:06:00 -0300</pubDate>
+    <item>
+      <title>5 Dicas para evitar cabelos brancos ao usar Backbone</title>
+      <link>wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html</link>
+      <description>&lt;p&gt;Se você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Este post é para você.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 04 Jun 2014 12:06:00 -0300</pubDate>
+      <dc:date>2014-06-04T12:06:00-03:00</dc:date>
+    </item>
+    <item>
+      <title>COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT.</title>
+      <link>wwww.rcarvalhojs.com/backbone/2014/06/03/comecando-require-backbone.html</link>
+      <description>&lt;p&gt;Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas. &lt;a href=&quot;http://localhost:4000/about.html&quot;&gt;Mais sobre mim.&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
+      <dc:date>2014-06-03T07:18:00-03:00</dc:date>
+    </item>
+    <dc:date>2014-06-04T12:06:00-03:00</dc:date>
+  </channel>
+</rss>

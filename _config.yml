@@ -1,0 +1,12 @@
+name: Renan Carvalho JavaScript blog.
+description: JavasCript e tudo mais.
+meta_description: "Renan Carvalho Js"
+
+markdown: redcarpet
+pygments: false
+logo: false
+paginate: 15
+
+# Details for the RSS feed generator
+url:            'wwww.rcarvalhojs.com'
+author:         'Renan Carvalho'

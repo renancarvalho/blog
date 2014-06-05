@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Renan Carvalho JavaScript blog. - JavasCript e tudo mais.</title>
+    <meta name="description" content="Renan Carvalho Js" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Renan Carvalho JavaScript blog.</span>
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2014-06-03">03 Jun 2014</time>
+        	
+        		on
+	        	
+	        	    jekyll
+	        	
+	        	    update
+	        	
+	        
+       	</span>
+
+        <h1 class="post-title">COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT.</h1>
+
+        <section class="post-content">
+            <p>Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas. <a href="http://localhost:4000/about.html">Mais sobre mim.</a></p>
+
+<p>Nos últimos 2 anos tenho trabalhado bastante com Single Page Application (SPA), utilizando Backbone, RequireJs, CoffeeScript e alguns outros frameworks, e nesse post vou mostrar como botar tudo isso pra funcionar.</p>
+
+<p>Obs: Este post parte da premissa que você já conhece um pouco sobre Backbone e como ele funciona, então não vou explicar a fundo, e sim focar em como fazer o setup do Require e Backbone. Prometo fazer um post mais explicativo sobre Backbone depois.</p>
+
+<p>Trabalhar com aplicações client-side, com funcionalidades complexas e grandes dependências de outros módulos JavaScript que sua aplicação pode precisar, podem ser bem difíceis (exemplo clássico: um plugin qualquer feito Jquery depende da própria library do Jquery para funcionar). Conforme sua aplicação for crescendo, gerenciar essas dependências pode ser complicado. Será muito mais saudável para a aplicação e para você também organizar isso de forma mais fácil.</p>
+
+<p>Para simplificar o que eu quero dizer, imagine que nossa aplicação tenha uma dependência do Jquery, Backbone e de um plugin JavaScript que você fez e adora. Logo, teremos que referenciar esses arquivos na nossa aplicação, basicamente você faria algo parecido com isso.</p>
+
+<p>Estrutura da aplicação.</p>
+
+<p><div>
+    <pre><code class='html'>root/
+.....index.html
+.....scripts
+........../lib
+...............backbone.min.js
+...............underscore.min.js
+...............jquery.min.js
+...............yourplugin.min.js
+...............require.min.js
+.....views/
+.....models/</code></pre>
+  </div></p>
+
+<p><div>
+    <pre><code class='html'>&lt;!--Carregando seus varios arquivos javascript...--&gt;
+&lt;script src=&quot;scripts/lib/undesrscore.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/lib/backbone.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/lib/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/lib/yourplugin.min.js&quot;&gt;&lt;/script&gt;
+&lt;!--Carrega o que mais precisar...--&gt;</code></pre>
+  </div></p>
+
+<p>Legal, mas qual o problema?</p>
+
+<ul>
+<li>Dificil saber exatamente as dependências entre os arquivos.</li>
+<li>O browse carrega os arquivos de forma assyncrona. O que aconteceria se o Backbone, que tem uma forte dependência do Underscore, fosse carregado primeiro? Crash :( </li>
+<li>Difícil manutenção e gerenciamento das dependências, conforme sua aplicação for crescendo.</li>
+<li>Carregar tudo de uma vez, às vezes sem necessidade (lazy load fica impossível).</li>
+<li>Não faz bem para a saúde do desenvolvedor.. hehehehe</li>
+</ul>
+
+<h3>RequireJs pode ajudar bastante com esse tipo de problema</h3>
+
+<h4>Mas o que então é o RequireJs?</h4>
+
+<blockquote>
+<p>&quot;RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.&quot;</p>
+</blockquote>
+
+<p>Para fazer o download do RequireJs <a href="http://requirejs.org/docs/download.html">clique aqui</a>. Neste post foi utilizada a versão 2.1.13.</p>
+
+<p>Uma das ideias do Require é justamente gerenciar as dependências que sua aplicação possui. No nosso caso, Jquery, Backbone, Underscore e seu plugin mágico.</p>
+
+<h4>Refatorando nosso arquivo html.</h4>
+
+<p><div>
+    <pre><code class='html'>&lt;!--Init.js é o arquivo em que iremos configurar nossas dependencias.--&gt;
+&lt;script data-main=&quot;init.js&quot; src=&quot;scripts/lib/require.min.js&quot;&gt;&lt;/script&gt;
+&lt;!--Diminuiu um pouco né... --&gt;</code></pre>
+  </div></p>
+
+<p>Agora não temos mais a necessidade de especificar e carregar todos os nossos arquivos de JavaScript. Dessa forma, a responsabilidade passa a ser do RequireJs. Dentro do arquivo init.coffee é onde iremos configurar nossas dependências.</p>
+
+<p><div>
+    <pre><code class='coffee'>root/
+.....index.html
+.....scripts
+........../lib
+...............backbone.min.js
+...............underscore.min.js
+...............jquery.min.js
+...............yourplugin.min.js
+...............require.min.js
+     #adicionando o arquivo init.coffe
+.....init.coffee<br>
+.....views/
+.....models/</code></pre>
+  </div></p>
+
+<h3>Configurando o Init.Coffee</h3>
+
+<p><div>
+    <pre><code class='coffee'>require.config<br>
+    baseUrl: &#39;scripts&#39;<br>
+    paths:
+        Jquery : &#39;lib/jquery.min.js&#39;
+        Backbone : &#39;lib/backbone.min.js&#39;
+        underscore : &#39;lib/underscore.min.js&#39;
+        SeuPlugin : &#39;lib/seuplugin.min.js&#39;<br>
+    shim : 
+        Backbone : 
+            deps : [&#39;underscore&#39;, &#39;Jquery&#39;]
+            exports : &#39;Backnone&#39;
+        SeuPlugin : 
+            deps : [&#39;Jquery&#39;]
+            exports : &#39;MeuPlugin&#39;</code></pre>
+  </div></p>
+
+<p>A partir de agora, teremos que escrever as dependências da nossa aplicação nesse arquivo. Talvez você se pergunte, qual a vantagem? Apenas mudou de lugar onde eu carregarei meus arquivos JavaScript. E a resposta é:</p>
+
+<ul>
+<li>Ficaram mais fáceis e claras suas dependências.</li>
+<li>Possibilidade de trabalhar com lazy load.</li>
+<li>As dependências entre os arquivos estão mais explicitas.</li>
+<li>Você não corre mais o risco de um arquivo carregar na frente do outro.</li>
+<li>Faz bem para a saúde do desenvolvedor :)<br></li>
+</ul>
+
+<h3>Backbone entrando na jogada.</h3>
+
+<p>Sou um fã de carteirinha do Backbone. Quando realmente percebi as vantagens que ele me traria, comecei a estudá-lo com afinco, e hoje certamente é um dos frameworks que mais gosto de trabalhar, mas confesso que não foi amor à primeira vista.</p>
+
+<p>&#39;Aceito&#39; alguns desenvolvedores dizerem que Backbone é dificil, que não veem muita vantagem em usá-lo e etc, mas eu garanto que uma vez que você de fato entender o que ele se propõe a fazer e como ele faz, será realmente muito bom.</p>
+
+<h4>Mas o que é BackboneJs?</h4>
+
+<p>Basicamente, Backbone é um framework que tem como principal foco organizar seu código JavaScript, utilizando conceitos da arquitetura MVC (model, view, controller). Isso não significa que ele seja um framework MVC. Existem várias pessoas usando Backbone, e é muito complicado você passar por alguma dificuldade que ninguém tenha passado. Na internet existem vários blogs super legais relacionados a Backbone, e a documentação oficial é bem legal também. <a href="http://www.backbonejs.org">Esse é o site oficial</a> , e obviamente para fazer download é nesse link que você tem que ir. Para esse post eu usei a ultima versão (1.1.2).</p>
+
+<p>Existe uma discussão sobre qual tipo de framework o Backbone se encaixaria, existem desenvolvedores que o consideram um framework MVC, outros MV*, outros MVVM e por aí vai. Sinceramente, eu não me preocupo muito em qual classificação ele se encaixa. O que vale a pena é o estudo, e tentar entender como ele pode te ajudar a desenvolver uma aplicação melhor, melhorando as praticas possíveis relacionadas a MVC, e isso tem me gerado um retorno muito positivo.</p>
+
+<p>Como o foco deste post não é entrar a fundo em Backbone e nem em RequireJs, não vou explicar muito a estrutura de funcionamento do Backbone, mas novamente prometo fazer um post mais explicativo mais para frente.</p>
+
+<p>Voltando para nossa aplicação, já temos configurado o RequireJs, que faz um papel fantástico, agora vamos configurar como o Backbone entra nessa jogada. Primeiro de tudo, você precisa fazer o download do Backnone, lembrando que o Backbone tem uma forte dependência do Underscore, logo o download do Underscore também é necessário pelo seu <a href="http://underscorejs.org">site oficial do Underscore</a>, Feito isso salve os arquivos na pasta &#39;scripts/libs&#39; (fique a vontade para configurar onde seus arquivos ficarão, só não esqueça de mudar o caminho no RequireJs).</p>
+
+<p>Se você salvou os arquivos em &#39;scripts/lib&#39;, seu arquivo init.coffee continuará funcionando normalmente. Falando em init.coffee, vamos dar uma olhada dentro dele.</p>
+
+<p>Já havíamos previamente especificado o caminho do Backbone, mas não tínhamos o arquivo físico na pasta. Se você tivesse rodado a aplicação, certamente um &quot;404 not found&quot; apareceria no seu console. Como agora temos o arquivo, provavelmente um &quot;200 OK&quot; aparecerá :)</p>
+
+<h4>Configurando o Backbone junto com RequireJs</h4>
+
+<p><div>
+    <pre><code class='coffee'>require.config<br>
+    baseUrl: &#39;scripts&#39;<br>
+    paths:
+        Jquery : &#39;lib/jquery.min.js&#39;
+        Backbone : &#39;lib/backbone.min.js&#39;
+        underscore : &#39;lib/underscore.min.js&#39;
+        SeuPlugin : &#39;lib/seuplugin.min.js&#39;
+     shim : 
+        Backbone : 
+            deps : [&#39;underscore&#39;]
+            exports : &#39;Backnone&#39;
+        SeuPlugin : 
+            deps : [&#39;Jquery&#39;]
+            exports : &#39;MeuPlugin&#39;
+    require [&quot;Router&quot;], (Router) -&gt;
+        router = new Router()
+        Backbone.history.start()</code></pre>
+  </div></p>
+
+<p>Obs: Cuidado com a identação utilizada pelo CoffeeScript, um tab a mais pode literalmente estragar tudo.</p>
+
+<p>É necessário criarmos um arquivo chamado router.coffee no root da nossa aplicação, pois é nele que configuraremos as rotas (caminhos digitados na Url) que nossa aplicação usará.</p>
+
+<p><div>
+    <pre><code class='coffee'>root/
+.....index.html
+.....scripts
+........../lib
+...............backbone.min.js
+...............underscore.min.js
+...............jquery.min.js
+...............yourplugin.min.js
+...............require.min.js<br>
+.....init.coffee<br>
+.....router.coffee
+.....views/
+.....models/</code></pre>
+  </div></p>
+
+<h3>Integrando o RequireJs com Backbone</h3>
+
+<p>Precisamos agora fazer com que o nosso arquivo &#39;router.coffe&#39; seja carregado como um módulo pelo RequireJs. Como nosso BaseUrl é o caminho &#39;/scripts&#39; e nosso arquivo esta em &#39;/scripts&#39;, é só usar o comando &quot;require [&#39;router&#39;]&quot; que se baseará no BaseUrl como caminho para buscar o arquivo especificado. Neste exemplo &#39;script/router.coffee&#39;.</p>
+
+<p><div>
+    <pre><code class='coffee'>define [
+    &quot;Backbone&quot;
+    &quot;views/HomeView&quot;
+], (Backbone, HomeView) -&gt;
+    class AppRouter extends Backbone.Router
+        routes:-&gt;
+            &quot;home&quot;:&quot;renderizarHome&quot; 
+        renderHome:-&gt;
+            #Fazer alguma coisa.</code></pre>
+  </div></p>
+
+<p>No código acima, configuramos uma rota simples para nossa aplicação. Sempre que a Url do browser mudar, o Backbone router verificará se existe alguma rota configurada para a Url digitada. Caso exista, a function mapeada para a rota será invocada.
+Neste caso, se o usuário digitar &#39;localhost:10000/#home&#39; o Backbone invocará a function &#39;renderizarHome&#39; que renderizará a view com as informações da Home.</p>
+
+<h3>Backbone View</h3>
+
+<p>No site oficial diz que as views são mais uma convenção do Backbone do que código. Faz sentido, só tome bastante cuidado com a palavra convenção, pois a grande ideia é organizar sua interface de forma lógica, reagindo de acordo com a mudança do model, sem precisar redesenhar toda a página.</p>
+
+<p>Precisamos saber onde em nossa aplicação exibiremos o conteúdo das views. Para isso vamos criar uma simples <code>div</code> que servirá como um container principal. Nosso arquivo html ficará assim.</p>
+
+<p><div>
+    <pre><code class='html'>&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script data-main=&quot;init.js&quot; src=&quot;scripts/lib/require.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+  </div></p>
+
+<p>Feito isso, vamos voltar no &#39;router.coffee&#39;, e lá fazer com que quando for digitado &quot;#home&quot; na Url do browser, nossa view possa ser renderizada.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href="/"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Renan Carvalho </h4>
+                    	<!-- Author Bio -->
+                    	<p> 
+                    		Começou a desenvolver software com 17 anos, e trabalha a 2 anos somente com frameworks javascript.
+                            Surfista e músico frustrado e um adorador de cerveja.
+                    	</p>
+                    </article>
+                </section>                
+            
+
+            <section class="share">
+                <h4>Compartilhe</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT.&amp;url=wwww.rcarvalhojs.com/jekyll/update/2014/06/03/comecando-require-backbone.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=wwww.rcarvalhojs.com/jekyll/update/2014/06/03/comecando-require-backbone.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=wwww.rcarvalhojs.com/jekyll/update/2014/06/03/comecando-require-backbone.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="/">Renan Carvalho JavaScript blog.</a> &copy;  &bull; All rights reserved.</section>
+            
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>
