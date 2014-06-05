@@ -2,7 +2,7 @@
 layout: post
 title:  "COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT."
 date:   2014-06-03 10:18:00
-categories: jekyll update
+categories: Backbone
 ---
 
 Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas. [Mais sobre mim.][SobreMim]
@@ -163,7 +163,7 @@ Sou um fã de carteirinha do Backbone. Quando realmente percebi as vantagens que
 
 Basicamente, Backbone é um framework que tem como principal foco organizar seu código JavaScript, utilizando conceitos da arquitetura MVC (model, view, controller). Isso não significa que ele seja um framework MVC. Existe uma comunidade grande de desenvolvedores usando Backbone, e é muito dificil você passar por alguma dificuldade que ninguém já tenha passado. Na internet existem vários blogs super legais relacionados a Backbone, e a documentação oficial é bem legal também. [Esse é o site oficial][backboneUrl] , e obviamente para fazer download é nesse link que você tem que ir. Para esse post eu usei a ultima versão (1.1.2).
 
-Existe uma discussão sobre qual tipo de framework o Backbone se encaixaria, existem desenvolvedores que o consideram um framework MVC, outros MV*, outros MVVM e por aí vai. Sinceramente, eu não me preocupo muito em qual classificação ele se encaixa. O que vale a pena é o estudo, e tentar entender como ele pode te ajudar a desenvolver uma aplicação melhor, melhorando as praticas possíveis relacionadas a MVC, e isso tem me gerado um retorno muito positivo.
+Existe uma discussão sobre qual tipo de framework o Backbone se encaixaria, existem desenvolvedores que o consideram um framework MVC, outros MV*, outros MVVM e por aí vai. Sinceramente, eu não me preocupo muito em qual classificação ele se encaixa. O que vale a pena é o estudo, e tentar entender como ele pode te ajudar a desenvolver uma aplicação melhor, melhorando as práticas possíveis relacionadas a MVC, e isso tem me gerado um retorno muito positivo.
 
 Como o foco deste post não é entrar a fundo em Backbone e nem em RequireJs, não vou explicar muito a estrutura de funcionamento do Backbone, mas novamente prometo fazer um post mais explicativo mais para frente.
 
