@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Renan Carvalho JavaScript blog. - JavasCript e tudo mais.</title>
+    <title>Renan Carvalho JavaScript blog. - JavaScript - CoffeeScript blog.</title>
     <meta name="description" content="Renan Carvalho Js" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -48,123 +48,270 @@
 	        
        	</span>
 
-        <h1 class="post-title">5 Dicas para evitar cabelos brancos ao usar Backbone</h1>
+        <h1 class="post-title">5 DICAS PARA EVITAR CABELOS BRANCOS AO USAR BACKBONE</h1>
 
         <section class="post-content">
-            <p>Se você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Este post é para você.</p>
+            <p>Você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Se sim, este post é para você.</p>
 
-<p>A idéia aqui é mostrar alguns tipos de códigos que se você evitar em suas aplicações, seu código certamente trará menos problemas, e será mais fácil de manter.</p>
+<p>A ideia aqui é mostrar algumas implementações que se você evitar, seu código certamente trará menos problemas e será mais fácil de manter.</p>
 
-<h4>1 - Evite o máximo possível fazer requisições ajax que não sejam através do Model.</h4>
+<h4>1 - Evite o máximo possível fazer requisições Ajax usando Jquery.</h4>
 
 <p>O que eu quis dizer com isso?</p>
 
-<p><img src="http://i.imgur.com/B4IVNL6.png" alt="Ajax"></p>
+<p><div>
+    <pre><code class='coffee'>#Dentro do Model.
+ObterCliente:-&gt;
+    $.ajax &#39;/UrlDaApi&#39;
+        type: &#39;GET&#39;
+        dataType: &#39;html&#39;
+        success:-&gt;
+            #fazer alguma coisa.
+        error:-&gt;
+            #fazer outra coisa.</code></pre>
+  </div></p>
 
-<p>Primeiro de tudo é necessário entender, que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição.O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica que:</p>
+<p>Primeiro de tudo, é importante saber que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição. O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica:</p>
 
 <ul>
-<li>Para salvar algo no server, o verbo correto é o <code>POST</code></li>
-<li>Para retornar algo do server, o ver correto é o <code>GET</code></li>
-<li>Para alterar algo no server, o verbo correto é o <code>PUT</code></li>
-<li>Para deletar algo do server, o verbo correto é o <code>DELETE</code><br></li>
+<li>Para salvar dados no server, o verbo correto é o <code>POST</code>.</li>
+<li>Para retornar dados do server, o ver correto é o <code>GET</code>.</li>
+<li>Para alterar dados no server, o verbo correto é o <code>PUT</code>.</li>
+<li>Para deletar dados do server, o verbo correto é o <code>DELETE</code>.<br></li>
 </ul>
 
-<p>Dentro do conceito estrutural do Backbone, esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus metodos sejam parecidos com estes.</p>
+<p>Dentro do conceito estrutural do Backbone esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus métodos sejam parecidos com este.</p>
 
-<p><img src="http://i.imgur.com/m3ypX5r.png" alt="model.fetch()"></p>
+<p><div>
+    <pre><code class='coffee'>#Dentro do Model.
+url: &#39;/UrlDaApi&#39;
+ObterCliente:-&gt;
+    @fetch(
+        success:-&gt;
+            #fazer alguma coisa
+        error:-&gt;
+            #fazer outra coisa
+    )</code></pre>
+  </div></p>
 
-<p>Muito menos linha de código com o mesmo resultado.</p>
+<p>Menos códigos com o mesmo resultado.</p>
 
-<p>Use:</p>
+<p>Use então:</p>
 
 <ul>
 <li><code>model.save()</code>, para <code>post</code>.</li>
 <li><code>model.fetch()</code>, para <code>get</code>.</li>
-<li><code>model.destroy()</code>, para delete.</li>
-<li><code>model.save()</code>, para <code>put</code>.(Se o Model estiver com o atributo id preenchido, o Backbone automaticamente entende como uma requisição de alteração, por isso <code>put</code>.</li>
+<li><code>model.destroy()</code>, para <code>delete</code>.</li>
+<li><code>model.save()</code>, para <code>put</code>. (Se o Model estiver com o atributo <code>id</code> preenchido, o Backbone automaticamente entende como uma requisição de alteração, por isso <code>put</code>).</li>
 </ul>
 
-<h4>2 - Sua View não pode ser dependente de callback</h4>
+<h4>2 - Sua View não pode ser dependente de callbacks.</h4>
 
-<p>É mais elegante para sua View, reagir de acordo com um evento disparado pelo Model. E também é mais elegante para o seu Model, não ter funções de callbacks, quando não necessário.</p>
+<p>É mais elegante para sua View reagir de acordo com um evento disparado pelo Model, e também mais elegante para o seu Model, não ter functions de callbacks quando não necessário.</p>
 
-<p>Ruim :(</p>
+<p>Implementação ruim :(</p>
 
-<p><img src="http://i.imgur.com/ozoPYIq.png" alt="Render ruim"></p>
+<p><div>
+    <pre><code class='coffee'>#Dentro da View.
+initialize:-&gt;
+    model = new ModelCliente()
+    model.fetch(
+            success:-&gt;
+                @render()
+            error:-&gt;
+                @renderMensagemDeError()
+        )
+render:-&gt;
+    #fazer alguma coisa.
+renderMensagemDeError:-&gt;
+    #fazer outra coisa.</code></pre>
+  </div></p>
 
-<p>Melhor assim.</p>
+<p>Refatorando:</p>
 
-<p><img src="http://i.imgur.com/Nlym7yZ.png" alt="escutando eventos"></p>
+<p><div>
+    <pre><code class='coffee'>#Dentro da view
+initialize:-&gt;
+    model = new ModelCliente()
+    model.on &#39;sync&#39;,@render,@
+    model.on &#39;error&#39;,@renderMensagemDeError,@
+    model.ObterCliente()
+render:-&gt;
+    #fazer alguma coisa.
+renderMensagemDeError:-&gt;
+    #fazer outra coisa.</code></pre>
+  </div></p>
+
+<p><div>
+    <pre><code class='coffee'>#Dentro do Model
+ObterCliente:-&gt;
+    @fetch()</code></pre>
+  </div></p>
 
 <blockquote>
 <p>Para mais informações sobre eventos disparados pelo Model, <a href="http://backbonejs.org/#Events">clique aqui.</a></p>
 </blockquote>
 
 <p>Não importa quando ou como o Model fará a requisição, de qualquer forma suas functions serão chamadas.
-Ficou menos complexo e mais organizado e alguém discorda?</p>
+Ficou menos complexo e mais organizado. Concorda?</p>
 
-<h4>3 - Views não controlam dados</h4>
+<h4>3 - Evite deixar suas Views &quot;vagando por aí&quot;.</h4>
 
-<p>As regras de domínio de sua aplicação(client-side), é de responsabilidade do Model e não da View, se você se deparou escrevendo um código em que sua View manipula algum dado, pare, respire fundo e pense.</p>
+<p>Provavelmente você usa alguns eventos em sua aplicação. Partindo do principio que o Backbone é um framework orientado a eventos, não vejo problema nenhum em usá-los. Desse modo, existem varias formas de fazermos binds de eventos em nossa view.</p>
 
-<p><div>
-    <pre><code class='coffee'>ola:-&gt;</code></pre>
+<p>Binding de eventos em Views:
+  <div>
+    <pre><code class='coffee'># Bind de eventos de interação com usuário.
+events:-&gt;
+    &quot;click #salvar&quot;:&quot;SalvarCliente&quot;
+    &quot;change input&quot;: &quot;AtualizarModel&quot;</code></pre>
   </div></p>
 
-<p>Views devem simplesmente refletir e reagir de acordo com o que está no Model.</p>
+<p><div>
+    <pre><code class='coffee'>#Dentro da view.
+    #Bind de eventos da view com o model.
+initialize:-&gt;
+    @model = new ModelCliente()
+    @model.on &quot;change&quot;, @exibirMensagem, @
+    @model.on &quot;sync&quot;, @render , @</code></pre>
+  </div></p>
 
-<h4>4 - Isole sua interface ao integrar com API&#39;s terceiras</h4>
+<p>Eventos não são um problema, desde que você os gerencie da forma correta.</p>
 
-<p>Se sua aplicação precisa integrar com aplicações terceiras, utilize a function <code>parse</code> do Backbone para isolar sua interface de qualquer mudança server-side.</p>
+<p>O que eu quero dizer? Imagine que seu arquivo Router.coffee seja parecido com o abaixo:</p>
 
-<p>exemplo:</p>
+<p><div>
+    <pre><code class='coffee'>routes:
+    &quot;ViewA&quot;:&quot;renderViewA&quot;
+    &quot;ViewB&quot;:&quot;renderViewB&quot;</p>
 
-<p>Imagine que as informações de um cliente venham de uma API que não seja implementada por voçê ou pelo seu time. E suponhamos que seu Model tenha os atributos: Nome,Idade,Sexo,Estado. E chegue esse Json no seu Model.</p>
+<p>renderViewA:-&gt;
+    viewA = new ViewA(el: $(&quot;#app&quot;))
+    viewA.render()</p>
+
+<p>renderViewB:-&gt;
+    viewB = new ViewB(el: $(&quot;#app&quot;))
+    viewB.render()</code></pre>
+  </div></p>
+
+<p>Ao &#39;mudar&#39; da ViewA para a ViewB, um novo conteúdo provavelmente deverá ser renderizado, talvez visualmente você não perceba o problema, mas certamente se você fez algum bind de eventos na ViewA, e depois renderizou a ViewB, esses eventos ainda estarão &#39;ligados&#39;.</p>
+
+<p>Uma forma de resolver esse problema é, sempre que uma alguma View precisar ser renderizada, é importante tentar &#39;matar&#39; alguma View que foi renderizada anteriormente.</p>
+
+<p><div>
+    <pre><code class='coffee'>routes:
+    &quot;ViewA&quot;:&quot;renderViewA&quot;
+    &quot;ViewB&quot;:&quot;renderViewB&quot;</p>
+
+<p>renderViewA:-&gt;
+    @viewA = new ViewA(el: $(&quot;#app&quot;))
+    @renderizarView(@viewA)</p>
+
+<p>renderViewB:-&gt;
+    @viewB = new ViewB(el: $(&quot;#app&quot;))
+    @renderizarView(@viewB)</p>
+
+<p>renderizarView:(view)-&gt;
+    if @viewAtual
+        @viewAtual.undelegateEvents()
+        @viewAtual.remove() 
+    @viewAtual = view
+    @viewAtual.render()</code></pre>
+  </div></p>
+
+<h4>4 - Isole sua interface ao integrar com API&#39;s terceiras.</h4>
+
+<p>Caso seja necessário integrar com aplicações terceiras, utilize a function <code>parse</code> do Backbone para isolar sua interface de qualquer mudança server-side. Exemplo:</p>
+
+<p>Imagine que as informações de um cliente venham de uma API que não seja implementada por você ou pelo seu time, e suponhamos que seu Model tenha os atributos: Nome, Idade, Sexo, Estado.</p>
+
+<p>Json recebido da API:</p>
 
 <p><div>
     <pre><code class='coffee'>{Nome:&#39;Renan Carvalho&#39;, Idade: 25, Sexo: &#39;Masculino&#39;, Estado:&#39;Rio de Janeiro&#39;}</code></pre>
   </div></p>
 
-<p>Ao fazer o bind do Model com a View, seu template deverá esperar pelos mesmo atributos do Model, certo? certíssimo.</p>
+<p>Ao fazer o bind do Model com a View, seu template (html) deverá esperar pelos mesmos atributos do Model. Tudo provavelmente funcionará, certo? Certíssimo.</p>
 
-<p>O que aconteceria se a APi mudasse, e retornasse o Json da seguinte forma?</p>
+<p>Mas o que aconteceria se a API sofresse uma pequena alteração e retornasse o Json da seguinte forma:</p>
 
 <p><div>
     <pre><code class='coffee'>{nmCliente:&#39;Renan Carvalho&#39;, dtNascimento:&#39;25/10/1988&#39;, Sexo:&#39;Masculino&#39;, UfCliente:&#39;RJ&#39;}</code></pre>
   </div></p>
 
-<p>Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes(Nome != nmCliente).E Você certamente teria que mudar seu arquivo de template para que seua View continue funcionando.</p>
+<p>Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes (Nome != nmCliente). Então o model criará esses &#39;novos&#39; atributos dentro de si, e você certamente teria que mudar seu arquivo de template (html) para que sua View continuasse funcionando.</p>
 
-<p>Para resolver esse problema, não é necessário mudar os atributos default do seu Model e nem nada na View, apenas implemente o método <code>parse</code> no seu Model e faça com que os campos retornados pelo server, sejam atualizados no seu Model de acordo com sua nomenclatura.</p>
+<p>Para resolver esse problema, não é necessário mudar os atributos default do seu Model e nem nada na View. Implemente o método <code>parse</code> no seu Model e faça com que os campos retornados pelo server sejam atualizados no seu Model de acordo com sua nomenclatura.</p>
 
-<p><div>
-    <pre><code class='coffee'></code></pre>
-  </div></p>
-
-<p>Bom isso hein...</p>
-
-<h4>5 - View não sabem e nem devem saber de nada.</h4>
-
-<p>Evite que sua View faça validações, ela não sabe de nada...</p>
-
-<p>Código ruim:</p>
+<p>Implementando o <code>parse</code> no Model:</p>
 
 <p><div>
-    <pre><code class='coffee'></code></pre>
+    <pre><code class='coffee'>defaults:
+    &#39;NomeCliente&#39;:&#39;&#39;
+    &#39;Idade&#39;:&#39;&#39;
+    &#39;Sexo&#39;:&#39;&#39;
+    &#39;Estado&#39;:&#39;&#39;
+parse:(ObjetoRetornadoPeloServer)-&gt;
+    @.set &quot;NomeCliente&quot;, ObjetoRetornadoPeloServer.nmCliente
+    @.set &quot;Idade&quot;, @CalcularIdade(ObjetoRetornadoPeloServer.dtNascimento)
+    @.set &quot;Sexo&quot;, ObjetoRetornadoPeloServer.Sexo
+    @.set &quot;Estado&quot;, ObjetoRetornadoPeloServer.UfCliente
+ObterCliente:-&gt;
+    @fetch()
+CalcularIdade:(DataDeNascimento)-&gt;
+    #calcularIdade</code></pre>
   </div></p>
 
-<p>Código bom:</p>
+<blockquote>
+<p><code>parse</code> sempre será chamado quando algum dado retornar do server em requisições usando <code>fetch()</code> e <code>save()</code>. </p>
+</blockquote>
 
-<p><div>
-    <pre><code class='coffee'></code></pre>
+<p>Útil isso hein...</p>
+
+<h4>5 - Views não sabem e nem devem saber de nada.</h4>
+
+<p>Evite que sua View faça validações. Ela não deve ter esse tipo de comportamento.</p>
+
+<p>View de cliente:
+  <div>
+    <pre><code class='coffee'>salvar:-&gt;
+    idade = $(&quot;#idade&quot;)
+    if idade &gt; 18
+        @.model.salvarCliente()</code></pre>
   </div></p>
+
+<p>Para criarmos validações, basta implementarmos a function <code>validate</code> dentro do nosso Model.</p>
+
+<p>Refatorando a View:
+  <div>
+    <pre><code class='coffee'>#adicionar o atributo &#39;Idade&#39; no model usando model.set.
+salvar:-&gt;
+    @model.salvarCliente()</code></pre>
+  </div></p>
+
+<p>Implementando validação no Model:
+  <div>
+    <pre><code class='coffee'>validation:
+    Idade:
+        required: true
+        min: 18
+        msg: &#39;O Cliente precisa ter mais que 18 anos.&#39;
+salvarCliente:-&gt; 
+    forcarAValidacaoDoModel = true
+    if @isValid(forcarAValidacaoDoModel)
+        @save()</code></pre>
+  </div></p>
+
+<blockquote>
+<p>Ao passar True como parâmetro na function &#39;isValid()&#39;, o Backbone performa todas as suas validações escritas dentro da function &#39;validation&#39;.
+Esta é uma forma de garantir que seu model não faça um <code>post</code> em um estado inválido. </p>
+</blockquote>
 
 <h4>Conclusão</h4>
 
-<p>Todas as dicas que mencionei acima (exceto a número 4), nada mais é do que a própria convenção do Backbone. Se você realmente se preocupa com a qualidade do seu código, vale apenas estudar mais afundo o funcionamento do framework e algumas convenções, isso vale pra qualquer outro framework. Geralmente alguns dessas implementações &#39;ruims&#39; são porque o desenvolvedor não conhece, o funcionamento do framework e resolve o problema usando Jquery, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC, ou MV(alguma coisa).   </p>
+<p>Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações &#39;ruims&#39; com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma &#39;tradicional&#39;, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   </p>
 
-<p>Seguindo esses passos, menos cabelos brancos nós temos.</p>
+<p>Seguindo esses passos, menos cabelos brancos...</p>
 
         </section>
 
@@ -180,7 +327,7 @@ Ficou menos complexo e mais organizado e alguém discorda?</p>
                     	<h4> Renan Carvalho </h4>
                     	<!-- Author Bio -->
                     	<p> 
-                    		Começou a desenvolver software com 17 anos, e trabalha a 2 anos somente com frameworks javascript.
+                    		Começou a desenvolver software com 17 anos, e trabalha há 2 anos somente com frameworks javascript.
                             Surfista e músico frustrado e um adorador de cerveja.
                     	</p>
                     </article>
@@ -189,7 +336,7 @@ Ficou menos complexo e mais organizado e alguém discorda?</p>
 
             <section class="share">
                 <h4>Compartilhe</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=5 Dicas para evitar cabelos brancos ao usar Backbone&amp;url=wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html"
+                <a class="icon-twitter" href="http://twitter.com/share?text=5 DICAS PARA EVITAR CABELOS BRANCOS AO USAR BACKBONE&amp;url=wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
@@ -204,6 +351,7 @@ Ficou menos complexo e mais organizado e alguém discorda?</p>
             </section>
             
             
+			
         	
         </footer>
 
@@ -215,7 +363,7 @@ Ficou menos complexo e mais organizado e alguém discorda?</p>
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright">All content copyright <a href="/">Renan Carvalho JavaScript blog.</a> &copy;  &bull; All rights reserved.</section>
+             <section class="copyright"><a href="/">Renan Carvalho JavaScript blog.</a> &copy; </section>
             
         </div>
     </footer>

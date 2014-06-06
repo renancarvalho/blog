@@ -1,153 +1,271 @@
 ---
 layout: post
-title:  "5 Dicas para evitar cabelos brancos ao usar Backbone"
+title:  "5 DICAS PARA EVITAR CABELOS BRANCOS AO USAR BACKBONE"
 date:   2014-06-04 15:06:00
 categories: Dicas de Backbone
 ---
 
-Se você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Este post é para você.
+Você acha que está ganhando mais cabelos brancos depois que começou um projeto usando Backbone? Se sim, este post é para você.
 
-A idéia aqui é mostrar alguns tipos de códigos que se você evitar em suas aplicações, seu código certamente trará menos problemas, e será mais fácil de manter.
+A ideia aqui é mostrar algumas implementações que se você evitar, seu código certamente trará menos problemas e será mais fácil de manter.
 
-#### 1 - Evite o máximo possível fazer requisições ajax que não sejam através do Model. ####
+#### 1 - Evite o máximo possível fazer requisições Ajax usando Jquery. ####
 
 O que eu quis dizer com isso?
 
-![Ajax](http://i.imgur.com/B4IVNL6.png)
-
-Primeiro de tudo é necessário entender, que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição.O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica que:
-
-- Para salvar algo no server, o verbo correto é o `POST`
-- Para retornar algo do server, o ver correto é o `GET`
-- Para alterar algo no server, o verbo correto é o `PUT`
-- Para deletar algo do server, o verbo correto é o `DELETE`   
-
-Dentro do conceito estrutural do Backbone, esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus metodos sejam parecidos com estes.
-
-![model.fetch()](http://i.imgur.com/m3ypX5r.png)
-
-
-Muito menos linha de código com o mesmo resultado.
+{%highlight coffee %}
+	#Dentro do Model.
+ObterCliente:->
+	$.ajax '/UrlDaApi'
+		type: 'GET'
+		dataType: 'html'
+		success:->
+			#fazer alguma coisa.
+		error:->
+			#fazer outra coisa.	
+{%endhighlight%}
 
 
-Use:
+Primeiro de tudo, é importante saber que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição. O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica:
+
+- Para salvar dados no server, o verbo correto é o `POST`.
+- Para retornar dados do server, o ver correto é o `GET`.
+- Para alterar dados no server, o verbo correto é o `PUT`.
+- Para deletar dados do server, o verbo correto é o `DELETE`.   
+
+Dentro do conceito estrutural do Backbone esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus métodos sejam parecidos com este.
+
+{%highlight coffee %}
+	#Dentro do Model.
+url: '/UrlDaApi'
+ObterCliente:->
+	@fetch(
+		success:->
+			#fazer alguma coisa
+		error:->
+			#fazer outra coisa
+	)	
+{%endhighlight%}
+
+
+Menos códigos com o mesmo resultado.
+
+Use então:
 	
 - `model.save()`, para `post`.
 - `model.fetch()`, para `get`.
-- `model.destroy()`, para delete.
-- `model.save()`, para `put`.(Se o Model estiver com o atributo id preenchido, o Backbone automaticamente entende como uma requisição de alteração, por isso `put`.
+- `model.destroy()`, para `delete`.
+- `model.save()`, para `put`. (Se o Model estiver com o atributo `id` preenchido, o Backbone automaticamente entende como uma requisição de alteração, por isso `put`).
 
 
-#### 2 - Sua View não pode ser dependente de callback ####
+#### 2 - Sua View não pode ser dependente de callbacks. ####
 
-É mais elegante para sua View, reagir de acordo com um evento disparado pelo Model. E também é mais elegante para o seu Model, não ter funções de callbacks, quando não necessário.
+É mais elegante para sua View reagir de acordo com um evento disparado pelo Model, e também mais elegante para o seu Model, não ter functions de callbacks quando não necessário.
 
-Ruim :(
+Implementação ruim :(
 
-![Render ruim](http://i.imgur.com/ozoPYIq.png)
+{%highlight coffee %}
+	#Dentro da View.
+initialize:->
+	model = new ModelCliente()
+	model.fetch(
+			success:->
+				@render()
+			error:->
+				@renderMensagemDeError()
+		)
+render:->
+	#fazer alguma coisa.
+renderMensagemDeError:->
+	#fazer outra coisa.
+{%endhighlight%}
 
 
-Melhor assim.
+Refatorando:
 
-![escutando eventos](http://i.imgur.com/Nlym7yZ.png)
-
-
-
+{%highlight coffee %}
+	#Dentro da view
+initialize:->
+	model = new ModelCliente()
+	model.on 'sync',@render,@
+	model.on 'error',@renderMensagemDeError,@
+	model.ObterCliente()
+render:->
+	#fazer alguma coisa.
+renderMensagemDeError:->
+	#fazer outra coisa.
+{%endhighlight%}
+{%highlight coffee %}
+	#Dentro do Model
+ObterCliente:->
+	@fetch()
+{%endhighlight%}
 
 > Para mais informações sobre eventos disparados pelo Model, [clique aqui.][urlBackboneEvent]
 
 Não importa quando ou como o Model fará a requisição, de qualquer forma suas functions serão chamadas.
-Ficou menos complexo e mais organizado e alguém discorda?
+Ficou menos complexo e mais organizado. Concorda?
 
 
-#### 3 - Views não controlam dados ####
+#### 3 - Evite deixar suas Views "vagando por aí". ####
 
-As regras de domínio de sua aplicação(client-side), é de responsabilidade do Model e não da View, se você se deparou escrevendo um código em que sua View manipula algum dado, pare, respire fundo e pense.
 
- 
+Provavelmente você usa alguns eventos em sua aplicação. Partindo do principio que o Backbone é um framework orientado a eventos, não vejo problema nenhum em usá-los. Desse modo, existem varias formas de fazermos binds de eventos em nossa view.
 
-{%highlight coffee%}
-ola:->
+Binding de eventos em Views:
+{%highlight coffee %}
+	# Bind de eventos de interação com usuário.
+events:->
+	"click #salvar":"SalvarCliente"
+	"change input": "AtualizarModel"
+{%endhighlight%}
+
+{%highlight coffee %}
+	#Dentro da view.
+	#Bind de eventos da view com o model.
+initialize:->
+	@model = new ModelCliente()
+	@model.on "change", @exibirMensagem, @
+	@model.on "sync", @render , @
+{%endhighlight%}
+
+Eventos não são um problema, desde que você os gerencie da forma correta.
+
+O que eu quero dizer? Imagine que seu arquivo Router.coffee seja parecido com o abaixo:
+
+{%highlight coffee %}
+routes:
+	"ViewA":"renderViewA"
+	"ViewB":"renderViewB"
+
+renderViewA:->
+	viewA = new ViewA(el: $("#app"))
+	viewA.render()
+
+renderViewB:->
+	viewB = new ViewB(el: $("#app"))
+	viewB.render()
+{%endhighlight%}
+
+Ao 'mudar' da ViewA para a ViewB, um novo conteúdo provavelmente deverá ser renderizado, talvez visualmente você não perceba o problema, mas certamente se você fez algum bind de eventos na ViewA, e depois renderizou a ViewB, esses eventos ainda estarão 'ligados'.
+
+Uma forma de resolver esse problema é, sempre que uma alguma View precisar ser renderizada, é importante tentar 'matar' alguma View que foi renderizada anteriormente.
+
+{%highlight coffee %}
+routes:
+	"ViewA":"renderViewA"
+	"ViewB":"renderViewB"
+
+renderViewA:->
+	@viewA = new ViewA(el: $("#app"))
+	@renderizarView(@viewA)
+
+renderViewB:->
+	@viewB = new ViewB(el: $("#app"))
+	@renderizarView(@viewB)
+
+renderizarView:(view)->
+	if @viewAtual
+		@viewAtual.undelegateEvents()
+		@viewAtual.remove()	
+	@viewAtual = view
+	@viewAtual.render()
 {%endhighlight%}
 
 
-Views devem simplesmente refletir e reagir de acordo com o que está no Model.
 
+#### 4 - Isole sua interface ao integrar com API's terceiras. ####
 
+Caso seja necessário integrar com aplicações terceiras, utilize a function `parse` do Backbone para isolar sua interface de qualquer mudança server-side. Exemplo:
 
-#### 4 - Isole sua interface ao integrar com API's terceiras ####
+Imagine que as informações de um cliente venham de uma API que não seja implementada por você ou pelo seu time, e suponhamos que seu Model tenha os atributos: Nome, Idade, Sexo, Estado.
 
-Se sua aplicação precisa integrar com aplicações terceiras, utilize a function `parse` do Backbone para isolar sua interface de qualquer mudança server-side.
-
-exemplo:
-
-Imagine que as informações de um cliente venham de uma API que não seja implementada por voçê ou pelo seu time. E suponhamos que seu Model tenha os atributos: Nome,Idade,Sexo,Estado. E chegue esse Json no seu Model.
-
+Json recebido da API:
 
 {%highlight coffee%}
-
 {Nome:'Renan Carvalho', Idade: 25, Sexo: 'Masculino', Estado:'Rio de Janeiro'}
-
 {%endhighlight%}
 
-Ao fazer o bind do Model com a View, seu template deverá esperar pelos mesmo atributos do Model, certo? certíssimo.
+Ao fazer o bind do Model com a View, seu template (html) deverá esperar pelos mesmos atributos do Model. Tudo provavelmente funcionará, certo? Certíssimo.
 
-O que aconteceria se a APi mudasse, e retornasse o Json da seguinte forma?
+Mas o que aconteceria se a API sofresse uma pequena alteração e retornasse o Json da seguinte forma:
 
 
 {%highlight coffee%}
-
 {nmCliente:'Renan Carvalho', dtNascimento:'25/10/1988', Sexo:'Masculino', UfCliente:'RJ'}
-
 {%endhighlight%}
 
-Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes(Nome != nmCliente).E Você certamente teria que mudar seu arquivo de template para que seua View continue funcionando.
+Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes (Nome != nmCliente). Então o model criará esses 'novos' atributos dentro de si, e você certamente teria que mudar seu arquivo de template (html) para que sua View continuasse funcionando.
 
-Para resolver esse problema, não é necessário mudar os atributos default do seu Model e nem nada na View, apenas implemente o método `parse` no seu Model e faça com que os campos retornados pelo server, sejam atualizados no seu Model de acordo com sua nomenclatura.
+Para resolver esse problema, não é necessário mudar os atributos default do seu Model e nem nada na View. Implemente o método `parse` no seu Model e faça com que os campos retornados pelo server sejam atualizados no seu Model de acordo com sua nomenclatura.
 
-
+Implementando o `parse` no Model:
 
 {%highlight coffee%}
-
-
-
+defaults:
+	'NomeCliente':''
+    'Idade':''
+    'Sexo':''
+    'Estado':''
+parse:(ObjetoRetornadoPeloServer)->
+	@.set "NomeCliente", ObjetoRetornadoPeloServer.nmCliente
+    @.set "Idade", @CalcularIdade(ObjetoRetornadoPeloServer.dtNascimento)
+    @.set "Sexo", ObjetoRetornadoPeloServer.Sexo
+    @.set "Estado", ObjetoRetornadoPeloServer.UfCliente
+ObterCliente:->
+	@fetch()
+CalcularIdade:(DataDeNascimento)->
+	#calcularIdade
 {%endhighlight%}
 
+> `parse` sempre será chamado quando algum dado retornar do server em requisições usando `fetch()` e `save()`. 
 
-Bom isso hein...
+Útil isso hein...
 
+#### 5 - Views não sabem e nem devem saber de nada. ####
 
+Evite que sua View faça validações. Ela não deve ter esse tipo de comportamento.
 
-#### 5 - View não sabem e nem devem saber de nada. ####
-
-
-Evite que sua View faça validações, ela não sabe de nada...
-
-Código ruim:
-
+View de cliente:
 {%highlight coffee%}
-
-
-
+salvar:->
+	idade = $("#idade")
+	if idade > 18
+		@.model.salvarCliente()
 {%endhighlight%}
 
  
-Código bom:
+Para criarmos validações, basta implementarmos a function `validate` dentro do nosso Model.
 
-
+Refatorando a View:
 {%highlight coffee%}
-
-
-
+#adicionar o atributo 'Idade' no model usando model.set.
+salvar:->
+	@model.salvarCliente()
 {%endhighlight%}
 
+Implementando validação no Model:
+{%highlight coffee%}
+validation:
+	Idade:
+		required: true
+		min: 18
+		msg: 'O Cliente precisa ter mais que 18 anos.'
+salvarCliente:->	
+	forcarAValidacaoDoModel = true
+	if @isValid(forcarAValidacaoDoModel)
+		@save()
+{%endhighlight%}
+
+> Ao passar True como parâmetro na function 'isValid()', o Backbone performa todas as suas validações escritas dentro da function 'validation'.
+Esta é uma forma de garantir que seu model não faça um `post` em um estado inválido. 
 
 
 #### Conclusão ####
 
 
-Todas as dicas que mencionei acima (exceto a número 4), nada mais é do que a própria convenção do Backbone. Se você realmente se preocupa com a qualidade do seu código, vale apenas estudar mais afundo o funcionamento do framework e algumas convenções, isso vale pra qualquer outro framework. Geralmente alguns dessas implementações 'ruims' são porque o desenvolvedor não conhece, o funcionamento do framework e resolve o problema usando Jquery, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC, ou MV(alguma coisa).   
+Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações 'ruims' com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma 'tradicional', ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   
 
-Seguindo esses passos, menos cabelos brancos nós temos.
+Seguindo esses passos, menos cabelos brancos...
 
-[urlBackboneEvent]: http://backbonejs.org/#Events
+[urlBackboneEvent]: http://backbonejs.org/#Events 
