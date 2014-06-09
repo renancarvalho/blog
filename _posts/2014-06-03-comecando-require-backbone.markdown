@@ -5,12 +5,11 @@ date:   2014-06-03 10:18:00
 categories: Backbone
 ---
 
-Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas. [Mais sobre mim.][SobreMim]
+Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas.
 
 Nos últimos 2 anos tenho trabalhado bastante com Single Page Application (SPA), utilizando Backbone, RequireJs, CoffeeScript e alguns outros frameworks, e nesse post vou mostrar como botar tudo isso pra funcionar.
 
 Obs: Este post parte da premissa que você já conhece um pouco sobre Backbone e como ele funciona, então não vou explicar a fundo, e sim focar em como fazer o setup do Require e Backbone. Prometo fazer um post mais explicativo sobre Backbone depois.
-
 
 
 Trabalhar com aplicações client-side, com funcionalidades complexas e grandes dependências de outros módulos JavaScript que sua aplicação pode precisar, podem ser bem difíceis (exemplo clássico: um plugin qualquer feito Jquery depende da própria library do Jquery para funcionar). Conforme sua aplicação for crescendo, gerenciar essas dependências pode ser complicado. Será muito mais saudável para a aplicação e para você também organizar isso de forma mais fácil.
@@ -29,34 +28,25 @@ root/
 ...............backbone.min.js
 ...............underscore.min.js
 ...............jquery.min.js
-...............yourplugin.min.js
-...............require.min.js
+...............seuPlugin.min.js
 .....views/
 .....models/
 {% endhighlight %}
 
 
 
-
 {% highlight html %}
-
-
-<!--Carregando seus varios arquivos javascript...-->
 <script src="scripts/lib/undesrscore.min.js"></script>
 <script src="scripts/lib/backbone.min.js"></script>
 <script src="scripts/lib/jquery.min.js"></script>
-<script src="scripts/lib/yourplugin.min.js"></script>
-<!--Carrega o que mais precisar...-->
-
+<script src="scripts/lib/seuPlugin.min.js"></script>
 {%endhighlight%}
-
-
 
 
 Legal, mas qual o problema?
 
-- Dificil saber exatamente as dependências entre os arquivos.
-- O browse carrega os arquivos de forma assyncrona. O que aconteceria se o Backbone, que tem uma forte dependência do Underscore, fosse carregado primeiro? Crash :( 
+- Difícil saber exatamente as dependências entre os arquivos.
+- O browser carrega os arquivos de forma assíncrona. O que aconteceria se o Backbone, que tem uma forte dependência do Underscore, fosse carregado primeiro? Crash :( 
 - Difícil manutenção e gerenciamento das dependências, conforme sua aplicação for crescendo.
 - Carregar tudo de uma vez, às vezes sem necessidade (lazy load fica impossível).
 - Não faz bem para a saúde do desenvolvedor.. hehehehe
@@ -70,31 +60,21 @@ Legal, mas qual o problema?
 >"RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code."
 
 
+
+Uma das ideias do Require é justamente gerenciar de forma mais simples as dependências que sua aplicação possui. No nosso caso, Jquery, Backbone, Underscore e seu plugin mágico.
+
 Para fazer o download do RequireJs [clique aqui][requireUrl]. Neste post foi utilizada a versão 2.1.13.
-
-
-Uma das ideias do Require é justamente gerenciar as dependências que sua aplicação possui. No nosso caso, Jquery, Backbone, Underscore e seu plugin mágico.
 
 
 ####Refatorando nosso arquivo html.####
 
 
 {% highlight html %}
-
-<!--Init.js é o arquivo em que iremos configurar nossas dependencias.-->
 <script data-main="init.js" src="scripts/lib/require.min.js"></script>
-
-
 {%endhighlight%}
 
 
-
 Agora não temos mais a necessidade de especificar todos os nossos arquivos JavaScript no arquivo html. Dessa forma, a responsabilidade passa a ser do RequireJs. Dentro do arquivo init.coffee é onde iremos configurar nossas dependências.
-
-
-
-
-
 
 {% highlight coffee%}
 root/
@@ -104,9 +84,8 @@ root/
 ...............backbone.min.js
 ...............underscore.min.js
 ...............jquery.min.js
-...............yourplugin.min.js
-...............require.min.js
-     #adicionando o arquivo init.coffe
+...............seuPlugin.min.js
+...............require.min.js     
 .....init.coffee     
 .....views/
 .....models/
@@ -144,8 +123,11 @@ A partir de agora, teremos que escrever as dependências da nossa aplicação ne
 - Possibilidade de trabalhar com lazy load.
 - As dependências entre os arquivos estão mais explicitas.
 - Você não corre mais o risco de um arquivo carregar na frente do outro.
-- Faz bem para a saúde do desenvolvedor :)     
+- Faz bem para a saúde do desenvolvedor :) 
 
+
+O comando `shim` ajuda bastante na forma de como escrevemos nossas dependências,
+nele podemos fazer com que um arquivo que tenha dependência do outro não seja carregado antes. No nosso exemplo, estamos especificando que o Backbone depende do Underscore e do Jquery, e que vou usar o Backbone na minha aplicação com o namespace 'Backbone'.       
 
 
 ###Backbone entrando na jogada.###
@@ -154,14 +136,14 @@ A partir de agora, teremos que escrever as dependências da nossa aplicação ne
 
 Sou um fã de carteirinha do Backbone. Quando realmente percebi as vantagens que ele me traria, comecei a estudá-lo bastante, e hoje certamente é um dos frameworks que mais gosto de trabalhar, mas confesso que não foi amor à primeira vista.
 
-'Aceito' alguns desenvolvedores dizerem que Backbone é dificil, que não veem muita vantagem em usá-lo e etc, mas garanto que uma vez que você de fato entender o que ele se propõe a fazer e como ele faz, será realmente muito bom.
+'Aceito' alguns desenvolvedores dizerem que Backbone é difícil, que não veem muita vantagem em usá-lo e etc, mas garanto que uma vez que você de fato entender o que ele se propõe a fazer e como ele faz, será realmente muito bom.
 
 
 ####Mas o que é BackboneJs?####
 
 
 
-Basicamente, Backbone é um framework que tem como principal foco organizar seu código JavaScript, utilizando conceitos da arquitetura MVC (model, view, controller). Isso não significa que ele seja um framework MVC. Existe uma comunidade grande de desenvolvedores usando Backbone, e é muito dificil você passar por alguma dificuldade que ninguém já tenha passado. Na internet existem vários blogs super legais relacionados a Backbone, e a documentação oficial é bem legal também. [Esse é o site oficial][backboneUrl] , e obviamente para fazer download é nesse link que você tem que ir. Para esse post eu usei a ultima versão (1.1.2).
+Basicamente, Backbone é um framework que tem como principal foco organizar seu código JavaScript, utilizando conceitos da arquitetura MVC (model, view, controller). Isso não significa que ele seja um framework MVC. Existe uma comunidade grande de desenvolvedores usando Backbone, e é muito difícil você passar por alguma dificuldade que ninguém já tenha passado. Na internet existem vários blogs super legais relacionados a Backbone, e a documentação oficial é bem legal também. [Esse é o site oficial][backboneUrl] , e obviamente para fazer download é nesse link que você tem que ir. Para esse post eu usei a ultima versão (1.1.2).
 
 Existe uma discussão sobre qual tipo de framework o Backbone se encaixaria, existem desenvolvedores que o consideram um framework MVC, outros MV*, outros MVVM e por aí vai. Sinceramente, eu não me preocupo muito em qual classificação ele se encaixa. O que vale a pena é o estudo, e tentar entender como ele pode te ajudar a desenvolver uma aplicação melhor, melhorando as práticas possíveis relacionadas a MVC, e isso tem me gerado um retorno muito positivo.
 
@@ -205,10 +187,9 @@ root/
 {%endhighlight%}
 
 
-Precisamos agora fazer com que o nosso arquivo 'router.coffe' seja carregado como um módulo pelo RequireJs. Como nosso BaseUrl é o caminho '/scripts' e nosso arquivo esta em '/scripts', é só usar o comando "require ['router']" que se baseará no BaseUrl como caminho para buscar o arquivo especificado. Neste exemplo 'script/router.coffee'.
+Precisamos agora fazer com que o nosso arquivo 'router.coffee' seja carregado como um módulo pelo RequireJs. Como nosso BaseUrl é o caminho '/scripts' e nosso arquivo esta em '/scripts', é só usar o comando "require ['router']" que se baseará no BaseUrl como caminho para buscar o arquivo especificado. Neste exemplo 'script/router.coffee'.
 
 {% highlight coffee%}
-
 require.config    
     baseUrl: 'scripts'    
     paths:
@@ -226,7 +207,6 @@ require.config
     require ["Router"], (Router) ->
         router = new Router()
         Backbone.history.start()
-
 {%endhighlight%}
 
 
