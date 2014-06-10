@@ -280,7 +280,9 @@ CalcularIdade:(DataDeNascimento)-&gt;
         @.model.salvarCliente()</code></pre>
   </div></p>
 
-<p>Para criarmos validações, basta implementarmos a function <code>validate</code> dentro do nosso Model.</p>
+<p>Existe uma forma de simplificar essa tarefa usando um plugin bem legal que é o <a href="http://thedersen.com/projects/backbone-validation">Backbone Validation</a>, vale apena uma lida rápida, é bem simples.</p>
+
+<p>Então para criarmos validações, basta implementarmos a function <code>validate</code> dentro do nosso Model.</p>
 
 <p>Refatorando a View:
   <div>
@@ -304,7 +306,7 @@ salvarCliente:-&gt;
 
 <blockquote>
 <p>Ao passar True como parâmetro na function &#39;isValid()&#39;, o Backbone performa todas as suas validações escritas dentro da function &#39;validation&#39;.
-Esta é uma forma de garantir que seu model não faça um <code>post</code> em um estado inválido. </p>
+Esta é uma forma de garantir que seu model não faça um <code>post</code> em um estado inválido.</p>
 </blockquote>
 
 <h4>Conclusão</h4>

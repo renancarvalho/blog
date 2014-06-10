@@ -234,8 +234,9 @@ salvar:->
 		@.model.salvarCliente()
 {%endhighlight%}
 
- 
-Para criarmos validações, basta implementarmos a function `validate` dentro do nosso Model.
+Existe uma forma de simplificar essa tarefa usando um plugin bem legal que é o [Backbone Validation][validation], vale apena uma lida rápida, é bem simples.
+
+Então para criarmos validações, basta implementarmos a function `validate` dentro do nosso Model.
 
 Refatorando a View:
 {%highlight coffee%}
@@ -258,7 +259,9 @@ salvarCliente:->
 {%endhighlight%}
 
 > Ao passar True como parâmetro na function 'isValid()', o Backbone performa todas as suas validações escritas dentro da function 'validation'.
-Esta é uma forma de garantir que seu model não faça um `post` em um estado inválido. 
+Esta é uma forma de garantir que seu model não faça um `post` em um estado inválido.
+
+
 
 
 #### Conclusão ####
@@ -269,3 +272,4 @@ Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria conve
 Seguindo esses passos, menos cabelos brancos...
 
 [urlBackboneEvent]: http://backbonejs.org/#Events 
+[validation]: http://thedersen.com/projects/backbone-validation
