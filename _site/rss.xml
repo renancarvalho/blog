@@ -8,7 +8,15 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Wed, 04 Jun 2014 12:06:00 -0300</pubDate>
+    <pubDate>Tue, 24 Jun 2014 18:06:00 -0300</pubDate>
+    <item>
+      <title>GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER.</title>
+      <link>wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/24/gerenciando-o-estado-da-aplicacao.html</link>
+      <description>&lt;p&gt;Gerenciar como sua aplicação deve se comportar pode ser uma tarefa fácil ou difícil. Implementar bem suas exceções de negócio é um ponto interessante que qualquer desenvolvedor deve se preocupar.&lt;/p&gt;
+</description>
+      <pubDate>Tue, 24 Jun 2014 18:06:00 -0300</pubDate>
+      <dc:date>2014-06-24T18:06:00-03:00</dc:date>
+    </item>
     <item>
       <title>5 DICAS PARA EVITAR CABELOS BRANCOS AO USAR BACKBONE</title>
       <link>wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/04/5dicas-backbone.html</link>
@@ -25,6 +33,6 @@
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2014-06-04T12:06:00-03:00</dc:date>
+    <dc:date>2014-06-24T18:06:00-03:00</dc:date>
   </channel>
 </rss>
