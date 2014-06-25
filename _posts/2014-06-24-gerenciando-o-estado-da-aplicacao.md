@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER."
+title: "GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER"
 date:   2014-06-24 21:06:00
 categories: Dicas de Backbone
 ---
