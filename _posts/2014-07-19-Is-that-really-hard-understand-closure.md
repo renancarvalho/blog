@@ -6,7 +6,7 @@ categories: Javascript.
 ---
 
 What is closure and why should I use it?
-When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing. **Why should I use Closures?**.
+When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, **Why should I use Closures?**.
 
 >The main idea here is try to show the way that I started to understand closure, and also make you spend less time than me.
 
