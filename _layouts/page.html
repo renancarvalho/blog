@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<main class="content" role="main">
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="{{site.baseurl}}">
+                {% if site.logo %}
+                    <img src="{{site.logo}}" alt="{{ site.name }}" />
+                {% else %}
+                    <span class="blog-title">{{ site.name }}</span>
+                {%endif%} 
+            </a>
+        </header>
+
+        <h1 class="post-title">{{ page.title }}</h1>
+
+        <section class="post-content">
+            {{content}}
+        </section>
+		
+		<section>
+			<div>
+				<a href="http://stackoverflow.com/users/3200473/rcarvalho">
+					<img src="http://stackoverflow.com/users/flair/3200473.png?theme=clean" width="208" height="58" alt="profile for rcarvalho at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for rcarvalho at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+				</a>
+			</div>
+		</section>
+
+    </article>
+
+</main>
