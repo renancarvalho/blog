@@ -8,9 +8,18 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Tue, 24 Jun 2014 18:06:00 -0300</pubDate>
+    <pubDate>Sat, 19 Jul 2014 18:06:00 -0300</pubDate>
     <item>
-      <title>GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER.</title>
+      <title>IS IT REALLY HARD TO UNDERSTAND CLOSURES?</title>
+      <link>wwww.rcarvalhojs.com/javascript/2014/07/19/Is-that-really-hard-understand-closure.html</link>
+      <description>&lt;p&gt;What is closure and why should I use it?
+When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, &lt;strong&gt;Why should I use Closures?&lt;/strong&gt;.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 19 Jul 2014 18:06:00 -0300</pubDate>
+      <dc:date>2014-07-19T18:06:00-03:00</dc:date>
+    </item>
+    <item>
+      <title>GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER</title>
       <link>wwww.rcarvalhojs.com/dicas/de/backbone/2014/06/24/gerenciando-o-estado-da-aplicacao.html</link>
       <description>&lt;p&gt;Gerenciar como sua aplicação deve se comportar pode ser uma tarefa fácil ou difícil. Implementar bem suas exceções de negócio é um ponto interessante que qualquer desenvolvedor deve se preocupar.&lt;/p&gt;
 </description>
@@ -26,13 +35,13 @@
       <dc:date>2014-06-04T12:06:00-03:00</dc:date>
     </item>
     <item>
-      <title>COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT.</title>
+      <title>COMEÇANDO COM REQUIREJS E BACKBONE USANDO COFFEESCRIPT</title>
       <link>wwww.rcarvalhojs.com/backbone/2014/06/03/comecando-require-backbone.html</link>
       <description>&lt;p&gt;Fala galera. Esse é meu primeiro post do blog e a ideia aqui é expor um pouco das minhas experiências, dicas, ideias e soluções adotadas.&lt;/p&gt;
 </description>
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2014-06-24T18:06:00-03:00</dc:date>
+    <dc:date>2014-07-19T18:06:00-03:00</dc:date>
   </channel>
 </rss>

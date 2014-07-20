@@ -2,7 +2,7 @@
 layout: post
 title: "IS IT REALLY HARD TO UNDERSTAND CLOSURES?"
 date:   2014-07-19 21:06:00
-categories: Javascript.
+categories: Javascript
 ---
 
 What is closure and why should I use it?
@@ -92,32 +92,33 @@ In our example, `getTypeOfCar()` receives a function that has access to the lexi
 The function `getTypeOfCar()` is a kind of closure! Closures are blocks of code that can be executed by keeping the original context that they were created (here the `getTypeOfCar()` is the closure), and this simple example shows one of the benefits of this technique (private and public members).
 
 
+
 Other Example of Closure:
 
  
 {%highlight javascript %}
-	
-function GiftList (){ 
-    var _list = [];  
+    
+    function GiftList (){
+    var List = [];
     var orderList = function(){
-			return _list.sort();
-		}
-	return { 
-		 	addNewGift: function(gift){
-				_list.push(gift);
-			},
-	     seeMyList: function(){
-		return orderList(_list).join(" - ");
-	}
-  };	
-};
-var list = new GiftList();
-list.addNewGift("Purse");
-list.addNewGift("Shoes");
-list.addNewGift("Watch");
-list.seeMyList();
-// "Purse - Shoes - Watch"
-
+    			return List.sort();
+    		}
+    	return { 
+    		 	addNewGift: function(gift){
+    				List.push(gift);
+    			},
+    	 seeMyList: function(){
+    		return orderList(List).join(" - ");
+    	}
+      };	
+    };
+    var list = new GiftList();
+    list.addNewGift("Purse");
+    list.addNewGift("Shoes");
+    list.addNewGift("Watch");
+    list.seeMyList();
+    // "Purse - Shoes - Watch"
+    
 {%endhighlight%}
 
 
