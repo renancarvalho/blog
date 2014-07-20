@@ -97,8 +97,8 @@ Other Example of Closure:
  
 {%highlight javascript %}
 	
-function GiftList (){
-    var _list = [];
+function GiftList (){ 
+    var _list = [];  
     var orderList = function(){
 			return _list.sort();
 		}
