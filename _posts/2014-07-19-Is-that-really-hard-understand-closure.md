@@ -98,16 +98,16 @@ Other Example of Closure:
 {%highlight javascript %}
 	
 function GiftList (){
-    var list = [];
+    var _list = [];
     var orderList = function(){
-			return list.sort();
+			return _list.sort();
 		}
 	return { 
 		 	addNewGift: function(gift){
 				_list.push(gift);
 			},
 	     seeMyList: function(){
-		return orderList(list).join(" - ");
+		return orderList(_list).join(" - ");
 	}
   };	
 };
