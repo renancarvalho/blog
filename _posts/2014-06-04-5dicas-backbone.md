@@ -267,7 +267,7 @@ Esta é uma forma de garantir que seu model não faça um `post` em um estado in
 #### Conclusão ####
 
 
-Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações 'ruims' com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma 'tradicional', ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   
+Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações 'ruins' com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma 'tradicional', ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   
 
 Seguindo esses passos, menos cabelos brancos...
 
