@@ -258,7 +258,7 @@ salvarCliente:->
 		@save()
 {%endhighlight%}
 
-> Ao passar True como parâmetro na function 'isValid()', o Backbone performa todas as suas validações escritas dentro da function 'validation'.
+> Ao passar True como parâmetro na function 'isValid()', Backbone irá performar todas as suas validações escritas dentro da function 'validation'.
 Esta é uma forma de garantir que seu model não faça um `post` em um estado inválido.
 
 

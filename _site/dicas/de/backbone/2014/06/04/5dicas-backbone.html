@@ -27,7 +27,7 @@
 
     <article class="post">
         <header class="post-header">
-            <a id="blog-logo" href="/">
+            <a id="blog-logo" href="">
                 
                     <span class="blog-title">Renan Carvalho JavaScript blog.</span>
                  
@@ -59,17 +59,15 @@
 
 <p>O que eu quis dizer com isso?</p>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro do Model.
-ObterCliente:-&gt;
-    $.ajax &#39;/UrlDaApi&#39;
-        type: &#39;GET&#39;
-        dataType: &#39;html&#39;
-        success:-&gt;
-            #fazer alguma coisa.
-        error:-&gt;
-            #fazer outra coisa.</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro do Model.</span>
+<span class="nx">ObterCliente</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span> <span class="s">&#39;/UrlDaApi&#39;</span>
+        <span class="nv">type: </span><span class="s">&#39;GET&#39;</span>
+        <span class="nv">dataType: </span><span class="s">&#39;html&#39;</span>
+        <span class="nx">success</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="c1">#fazer alguma coisa.</span>
+        <span class="nx">error</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="c1">#fazer outra coisa.</span></code></pre></div>
 
 <p>Primeiro de tudo, é importante saber que o Backbone te facilita muito nesse tipo de tarefa e que realmente não é necessário todo esse código para fazer uma requisição. O Backbone trabalha com o modelo RESTfull para requisições HTTP, e isso implica:</p>
 
@@ -82,17 +80,15 @@ ObterCliente:-&gt;
 
 <p>Dentro do conceito estrutural do Backbone esse tipo de tarefa deve ser de responsabilidade exclusiva do seu Model. Então para fazer requisições, o ideal é que seus métodos sejam parecidos com este.</p>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro do Model.
-url: &#39;/UrlDaApi&#39;
-ObterCliente:-&gt;
-    @fetch(
-        success:-&gt;
-            #fazer alguma coisa
-        error:-&gt;
-            #fazer outra coisa
-    )</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro do Model.</span>
+<span class="nv">url: </span><span class="s">&#39;/UrlDaApi&#39;</span>
+<span class="nx">ObterCliente</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nx">@fetch</span><span class="p">(</span>
+        <span class="nx">success</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="c1">#fazer alguma coisa</span>
+        <span class="nx">error</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="c1">#fazer outra coisa</span>
+    <span class="p">)</span></code></pre></div>
 
 <p>Menos códigos com o mesmo resultado.</p>
 
@@ -111,42 +107,36 @@ ObterCliente:-&gt;
 
 <p>Implementação ruim :(</p>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro da View.
-initialize:-&gt;
-    model = new ModelCliente()
-    model.fetch(
-            success:-&gt;
-                @render()
-            error:-&gt;
-                @renderMensagemDeError()
-        )
-render:-&gt;
-    #fazer alguma coisa.
-renderMensagemDeError:-&gt;
-    #fazer outra coisa.</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro da View.</span>
+<span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nv">model = </span><span class="k">new</span> <span class="nx">ModelCliente</span><span class="p">()</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span>
+            <span class="nx">success</span><span class="o">:</span><span class="nf">-&gt;</span>
+                <span class="nx">@render</span><span class="p">()</span>
+            <span class="nx">error</span><span class="o">:</span><span class="nf">-&gt;</span>
+                <span class="nx">@renderMensagemDeError</span><span class="p">()</span>
+        <span class="p">)</span>
+<span class="nx">render</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="c1">#fazer alguma coisa.</span>
+<span class="nx">renderMensagemDeError</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="c1">#fazer outra coisa.</span></code></pre></div>
 
 <p>Refatorando:</p>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro da view
-initialize:-&gt;
-    model = new ModelCliente()
-    model.on &#39;sync&#39;,@render,@
-    model.on &#39;error&#39;,@renderMensagemDeError,@
-    model.ObterCliente()
-render:-&gt;
-    #fazer alguma coisa.
-renderMensagemDeError:-&gt;
-    #fazer outra coisa.</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro da view</span>
+<span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nv">model = </span><span class="k">new</span> <span class="nx">ModelCliente</span><span class="p">()</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;sync&#39;</span><span class="p">,</span><span class="nx">@render</span><span class="p">,</span><span class="nx">@</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span><span class="nx">@renderMensagemDeError</span><span class="p">,</span><span class="nx">@</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">ObterCliente</span><span class="p">()</span>
+<span class="nx">render</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="c1">#fazer alguma coisa.</span>
+<span class="nx">renderMensagemDeError</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="c1">#fazer outra coisa.</span></code></pre></div>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro do Model
-ObterCliente:-&gt;
-    @fetch()</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro do Model</span>
+<span class="nx">ObterCliente</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nx">@fetch</span><span class="p">()</span></code></pre></div>
 
 <blockquote>
 <p>Para mais informações sobre eventos disparados pelo Model, <a href="http://backbonejs.org/#Events">clique aqui.</a></p>
@@ -159,65 +149,58 @@ Ficou menos complexo e mais organizado. Concorda?</p>
 
 <p>Provavelmente você usa alguns eventos em sua aplicação. Partindo do principio que o Backbone é um framework orientado a eventos, não vejo problema nenhum em usá-los. Desse modo, existem varias formas de fazermos binds de eventos em nossa view.</p>
 
-<p>Binding de eventos em Views:
-  <div>
-    <pre><code class='coffee'># Bind de eventos de interação com usuário.
-events:-&gt;
-    &quot;click #salvar&quot;:&quot;SalvarCliente&quot;
-    &quot;change input&quot;: &quot;AtualizarModel&quot;</code></pre>
-  </div></p>
+<p>Binding de eventos em Views:</p>
 
-<p><div>
-    <pre><code class='coffee'>#Dentro da view.
-    #Bind de eventos da view com o model.
-initialize:-&gt;
-    @model = new ModelCliente()
-    @model.on &quot;change&quot;, @exibirMensagem, @
-    @model.on &quot;sync&quot;, @render , @</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1"># Bind de eventos de interação com usuário.</span>
+<span class="nx">events</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="s">&quot;click #salvar&quot;</span><span class="o">:</span><span class="s">&quot;SalvarCliente&quot;</span>
+    <span class="s">&quot;change input&quot;</span><span class="o">:</span> <span class="s">&quot;AtualizarModel&quot;</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#Dentro da view.</span>
+    <span class="c1">#Bind de eventos da view com o model.</span>
+<span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="vi">@model = </span><span class="k">new</span> <span class="nx">ModelCliente</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;change&quot;</span><span class="p">,</span> <span class="nx">@exibirMensagem</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;sync&quot;</span><span class="p">,</span> <span class="nx">@render</span> <span class="p">,</span> <span class="nx">@</span></code></pre></div>
 
 <p>Eventos não são um problema, desde que você os gerencie da forma correta.</p>
 
 <p>O que eu quero dizer? Imagine que seu arquivo Router.coffee seja parecido com o abaixo:</p>
 
-<p><div>
-    <pre><code class='coffee'>routes:
-    &quot;ViewA&quot;:&quot;renderViewA&quot;
-    &quot;ViewB&quot;:&quot;renderViewB&quot;</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">routes:</span>
+    <span class="s">&quot;ViewA&quot;</span><span class="o">:</span><span class="s">&quot;renderViewA&quot;</span>
+    <span class="s">&quot;ViewB&quot;</span><span class="o">:</span><span class="s">&quot;renderViewB&quot;</span>
 
-<p>renderViewA:-&gt;
-    viewA = new ViewA(el: $(&quot;#app&quot;))
-    viewA.render()</p>
+<span class="nx">renderViewA</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nv">viewA = </span><span class="k">new</span> <span class="nx">ViewA</span><span class="p">(</span><span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">))</span>
+    <span class="nx">viewA</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
 
-<p>renderViewB:-&gt;
-    viewB = new ViewB(el: $(&quot;#app&quot;))
-    viewB.render()</code></pre>
-  </div></p>
+<span class="nx">renderViewB</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nv">viewB = </span><span class="k">new</span> <span class="nx">ViewB</span><span class="p">(</span><span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">))</span>
+    <span class="nx">viewB</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span></code></pre></div>
 
 <p>Ao &#39;mudar&#39; da ViewA para a ViewB, um novo conteúdo provavelmente deverá ser renderizado, talvez visualmente você não perceba o problema, mas certamente se você fez algum bind de eventos na ViewA, e depois renderizou a ViewB, esses eventos ainda estarão &#39;ligados&#39;.</p>
 
 <p>Uma forma de resolver esse problema é, sempre que uma alguma View precisar ser renderizada, é importante tentar &#39;matar&#39; alguma View que foi renderizada anteriormente.</p>
 
-<p><div>
-    <pre><code class='coffee'>routes:
-    &quot;ViewA&quot;:&quot;renderViewA&quot;
-    &quot;ViewB&quot;:&quot;renderViewB&quot;</p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">routes:</span>
+    <span class="s">&quot;ViewA&quot;</span><span class="o">:</span><span class="s">&quot;renderViewA&quot;</span>
+    <span class="s">&quot;ViewB&quot;</span><span class="o">:</span><span class="s">&quot;renderViewB&quot;</span>
 
-<p>renderViewA:-&gt;
-    @viewA = new ViewA(el: $(&quot;#app&quot;))
-    @renderizarView(@viewA)</p>
+<span class="nx">renderViewA</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="vi">@viewA = </span><span class="k">new</span> <span class="nx">ViewA</span><span class="p">(</span><span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">))</span>
+    <span class="nx">@renderizarView</span><span class="p">(</span><span class="nx">@viewA</span><span class="p">)</span>
 
-<p>renderViewB:-&gt;
-    @viewB = new ViewB(el: $(&quot;#app&quot;))
-    @renderizarView(@viewB)</p>
+<span class="nx">renderViewB</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="vi">@viewB = </span><span class="k">new</span> <span class="nx">ViewB</span><span class="p">(</span><span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">))</span>
+    <span class="nx">@renderizarView</span><span class="p">(</span><span class="nx">@viewB</span><span class="p">)</span>
 
-<p>renderizarView:(view)-&gt;
-    if @viewAtual
-        @viewAtual.undelegateEvents()
-        @viewAtual.remove() 
-    @viewAtual = view
-    @viewAtual.render()</code></pre>
-  </div></p>
+<span class="nx">renderizarView</span><span class="o">:</span><span class="nf">(view)-&gt;</span>
+    <span class="k">if</span> <span class="nx">@viewAtual</span>
+        <span class="nx">@viewAtual</span><span class="p">.</span><span class="nx">undelegateEvents</span><span class="p">()</span>
+        <span class="nx">@viewAtual</span><span class="p">.</span><span class="nx">remove</span><span class="p">()</span>   
+    <span class="vi">@viewAtual = </span><span class="nx">view</span>
+    <span class="nx">@viewAtual</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span></code></pre></div>
 
 <h4>4 - Isole sua interface ao integrar com API&#39;s terceiras.</h4>
 
@@ -227,17 +210,13 @@ initialize:-&gt;
 
 <p>Json recebido da API:</p>
 
-<p><div>
-    <pre><code class='coffee'>{Nome:&#39;Renan Carvalho&#39;, Idade: 25, Sexo: &#39;Masculino&#39;, Estado:&#39;Rio de Janeiro&#39;}</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="p">{</span><span class="nx">Nome</span><span class="o">:</span><span class="s">&#39;Renan Carvalho&#39;</span><span class="p">,</span> <span class="nv">Idade: </span><span class="mi">25</span><span class="p">,</span> <span class="nv">Sexo: </span><span class="s">&#39;Masculino&#39;</span><span class="p">,</span> <span class="nx">Estado</span><span class="o">:</span><span class="s">&#39;Rio de Janeiro&#39;</span><span class="p">}</span></code></pre></div>
 
 <p>Ao fazer o bind do Model com a View, seu template (html) deverá esperar pelos mesmos atributos do Model. Tudo provavelmente funcionará, certo? Certíssimo.</p>
 
 <p>Mas o que aconteceria se a API sofresse uma pequena alteração e retornasse o Json da seguinte forma:</p>
 
-<p><div>
-    <pre><code class='coffee'>{nmCliente:&#39;Renan Carvalho&#39;, dtNascimento:&#39;25/10/1988&#39;, Sexo:&#39;Masculino&#39;, UfCliente:&#39;RJ&#39;}</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="p">{</span><span class="nx">nmCliente</span><span class="o">:</span><span class="s">&#39;Renan Carvalho&#39;</span><span class="p">,</span> <span class="nx">dtNascimento</span><span class="o">:</span><span class="s">&#39;25/10/1988&#39;</span><span class="p">,</span> <span class="nx">Sexo</span><span class="o">:</span><span class="s">&#39;Masculino&#39;</span><span class="p">,</span> <span class="nx">UfCliente</span><span class="o">:</span><span class="s">&#39;RJ&#39;</span><span class="p">}</span></code></pre></div>
 
 <p>Seu Model não vai conseguir fazer o bind dos atributos default com os atributos retornados pelo server, pois são diferentes (Nome != nmCliente). Então o model criará esses &#39;novos&#39; atributos dentro de si, e você certamente teria que mudar seu arquivo de template (html) para que sua View continuasse funcionando.</p>
 
@@ -245,22 +224,20 @@ initialize:-&gt;
 
 <p>Implementando o <code>parse</code> no Model:</p>
 
-<p><div>
-    <pre><code class='coffee'>defaults:
-    &#39;NomeCliente&#39;:&#39;&#39;
-    &#39;Idade&#39;:&#39;&#39;
-    &#39;Sexo&#39;:&#39;&#39;
-    &#39;Estado&#39;:&#39;&#39;
-parse:(ObjetoRetornadoPeloServer)-&gt;
-    @.set &quot;NomeCliente&quot;, ObjetoRetornadoPeloServer.nmCliente
-    @.set &quot;Idade&quot;, @CalcularIdade(ObjetoRetornadoPeloServer.dtNascimento)
-    @.set &quot;Sexo&quot;, ObjetoRetornadoPeloServer.Sexo
-    @.set &quot;Estado&quot;, ObjetoRetornadoPeloServer.UfCliente
-ObterCliente:-&gt;
-    @fetch()
-CalcularIdade:(DataDeNascimento)-&gt;
-    #calcularIdade</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">defaults:</span>
+    <span class="s">&#39;NomeCliente&#39;</span><span class="o">:</span><span class="s">&#39;&#39;</span>
+    <span class="s">&#39;Idade&#39;</span><span class="o">:</span><span class="s">&#39;&#39;</span>
+    <span class="s">&#39;Sexo&#39;</span><span class="o">:</span><span class="s">&#39;&#39;</span>
+    <span class="s">&#39;Estado&#39;</span><span class="o">:</span><span class="s">&#39;&#39;</span>
+<span class="nx">parse</span><span class="o">:</span><span class="nf">(ObjetoRetornadoPeloServer)-&gt;</span>
+    <span class="nx">@</span><span class="p">.</span><span class="nx">set</span> <span class="s">&quot;NomeCliente&quot;</span><span class="p">,</span> <span class="nx">ObjetoRetornadoPeloServer</span><span class="p">.</span><span class="nx">nmCliente</span>
+    <span class="nx">@</span><span class="p">.</span><span class="nx">set</span> <span class="s">&quot;Idade&quot;</span><span class="p">,</span> <span class="nx">@CalcularIdade</span><span class="p">(</span><span class="nx">ObjetoRetornadoPeloServer</span><span class="p">.</span><span class="nx">dtNascimento</span><span class="p">)</span>
+    <span class="nx">@</span><span class="p">.</span><span class="nx">set</span> <span class="s">&quot;Sexo&quot;</span><span class="p">,</span> <span class="nx">ObjetoRetornadoPeloServer</span><span class="p">.</span><span class="nx">Sexo</span>
+    <span class="nx">@</span><span class="p">.</span><span class="nx">set</span> <span class="s">&quot;Estado&quot;</span><span class="p">,</span> <span class="nx">ObjetoRetornadoPeloServer</span><span class="p">.</span><span class="nx">UfCliente</span>
+<span class="nx">ObterCliente</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nx">@fetch</span><span class="p">()</span>
+<span class="nx">CalcularIdade</span><span class="o">:</span><span class="nf">(DataDeNascimento)-&gt;</span>
+    <span class="c1">#calcularIdade</span></code></pre></div>
 
 <blockquote>
 <p><code>parse</code> sempre será chamado quando algum dado retornar do server em requisições usando <code>fetch()</code> e <code>save()</code>. </p>
@@ -272,46 +249,43 @@ CalcularIdade:(DataDeNascimento)-&gt;
 
 <p>Evite que sua View faça validações. Ela não deve ter esse tipo de comportamento.</p>
 
-<p>View de cliente:
-  <div>
-    <pre><code class='coffee'>salvar:-&gt;
-    idade = $(&quot;#idade&quot;)
-    if idade &gt; 18
-        @.model.salvarCliente()</code></pre>
-  </div></p>
+<p>View de cliente:</p>
+
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nx">salvar</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nv">idade = </span><span class="nx">$</span><span class="p">(</span><span class="s">&quot;#idade&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">idade</span> <span class="o">&gt;</span> <span class="mi">18</span>
+        <span class="nx">@</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">salvarCliente</span><span class="p">()</span></code></pre></div>
 
 <p>Existe uma forma de simplificar essa tarefa usando um plugin bem legal que é o <a href="http://thedersen.com/projects/backbone-validation">Backbone Validation</a>, vale apena uma lida rápida, é bem simples.</p>
 
 <p>Então para criarmos validações, basta implementarmos a function <code>validate</code> dentro do nosso Model.</p>
 
-<p>Refatorando a View:
-  <div>
-    <pre><code class='coffee'>#adicionar o atributo &#39;Idade&#39; no model usando model.set.
-salvar:-&gt;
-    @model.salvarCliente()</code></pre>
-  </div></p>
+<p>Refatorando a View:</p>
 
-<p>Implementando validação no Model:
-  <div>
-    <pre><code class='coffee'>validation:
-    Idade:
-        required: true
-        min: 18
-        msg: &#39;O Cliente precisa ter mais que 18 anos.&#39;
-salvarCliente:-&gt; 
-    forcarAValidacaoDoModel = true
-    if @isValid(forcarAValidacaoDoModel)
-        @save()</code></pre>
-  </div></p>
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="c1">#adicionar o atributo &#39;Idade&#39; no model usando model.set.</span>
+<span class="nx">salvar</span><span class="o">:</span><span class="nf">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">salvarCliente</span><span class="p">()</span></code></pre></div>
+
+<p>Implementando validação no Model:</p>
+
+<div class="highlight"><pre><code class="language-coffee" data-lang="coffee"><span class="nv">validation:</span>
+    <span class="nv">Idade:</span>
+        <span class="nv">required: </span><span class="kc">true</span>
+        <span class="nv">min: </span><span class="mi">18</span>
+        <span class="nv">msg: </span><span class="s">&#39;O Cliente precisa ter mais que 18 anos.&#39;</span>
+<span class="nx">salvarCliente</span><span class="o">:</span><span class="nf">-&gt;</span>  
+    <span class="nv">forcarAValidacaoDoModel = </span><span class="kc">true</span>
+    <span class="k">if</span> <span class="nx">@isValid</span><span class="p">(</span><span class="nx">forcarAValidacaoDoModel</span><span class="p">)</span>
+        <span class="nx">@save</span><span class="p">()</span></code></pre></div>
 
 <blockquote>
-<p>Ao passar True como parâmetro na function &#39;isValid()&#39;, o Backbone performa todas as suas validações escritas dentro da function &#39;validation&#39;.
+<p>Ao passar True como parâmetro na function &#39;isValid()&#39;, Backbone irá performar todas as suas validações escritas dentro da function &#39;validation&#39;.
 Esta é uma forma de garantir que seu model não faça um <code>post</code> em um estado inválido.</p>
 </blockquote>
 
 <h4>Conclusão</h4>
 
-<p>Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações &#39;ruims&#39; com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma &#39;tradicional&#39;, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   </p>
+<p>Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações &#39;ruins&#39; com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma &#39;tradicional&#39;, ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   </p>
 
 <p>Seguindo esses passos, menos cabelos brancos...</p>
 
@@ -323,7 +297,7 @@ Esta é uma forma de garantir que seu model não faça um <code>post</code> em u
         	<!-- If we want to display author's name and bio -->
             
                 <section class="author">
-                	<header> <a href="/"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
                 	<article>
                 		<!-- Author Name -->
                     	<h4> Renan Carvalho </h4>
@@ -374,9 +348,9 @@ Esta é uma forma de garantir que seu model não faça um <code>post</code> em u
 
 
     <footer class="site-footer">
-        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright"><a href="/">Renan Carvalho JavaScript blog.</a> &copy; </section>
+             <section class="copyright"><a href="">Renan Carvalho JavaScript blog.</a> &copy; </section>
             
         </div>
     </footer>
