@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GULP E BORSERIFY, UMA ALTERNATIVA AO REQUIRE.JS"
+title: "GULP E BROWSERIFY, UMA ALTERNATIVA AO REQUIRE.JS"
 date:   2014-08-02 19:15:00
 categories: Javascript
 ---

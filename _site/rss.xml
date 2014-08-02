@@ -8,7 +8,15 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Fri, 25 Jul 2014 15:06:00 -0300</pubDate>
+    <pubDate>Sat, 02 Aug 2014 16:15:00 -0300</pubDate>
+    <item>
+      <title>GULP E BORSERIFY, UMA ALTERNATIVA AO REQUIRE.JS</title>
+      <link>wwww.rcarvalhojs.com/javascript/2014/08/02/browserify-gulp.html</link>
+      <description>&lt;p&gt;Acho que uma das frases mais certas que existe no mundo de tecnologia e desenvolvimento de software: &amp;quot;Não existe a melhor solução&amp;quot;. Traduzindo pro dito popular, &amp;quot;Não existe bala de prata.&amp;quot;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 02 Aug 2014 16:15:00 -0300</pubDate>
+      <dc:date>2014-08-02T16:15:00-03:00</dc:date>
+    </item>
     <item>
       <title>VOCÊ ACHA CHATO IMPORTAR ARQUIVO CSV? VOU TENTAR TE AJUDAR</title>
       <link>wwww.rcarvalhojs.com/javascript/2014/07/25/csv-to-collection.html</link>
@@ -50,6 +58,6 @@ When I first started studing Javascript, I saw myself spending a lot of time try
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2014-07-25T15:06:00-03:00</dc:date>
+    <dc:date>2014-08-02T16:15:00-03:00</dc:date>
   </channel>
 </rss>
