@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Renan Carvalho JavaScript blog. - JavaScript - CoffeeScript blog.</title>
+    <meta name="description" content="Renan Carvalho Js" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <span class="blog-title">Renan Carvalho JavaScript blog.</span>
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2014-08-02">02 Aug 2014</time>
+        	
+        		on
+	        	
+	        	    javascript
+	        	
+	        
+       	</span>
+
+        <h1 class="post-title">GULP E BROWSERIFY, UMA ALTERNATIVA AO REQUIRE.JS</h1>
+
+        <section class="post-content">
+            <p>Acho que uma das frases mais certas que existe no mundo de tecnologia e desenvolvimento de software: &quot;Não existe a melhor solução&quot;. Traduzindo pro dito popular, &quot;Não existe bala de prata.&quot;</p>
+
+<p>Pode acontecer de um pattern resolver seu problema e não ser a solução para outro. Este post é para quem está um pouco cansado/insatisfeito de trabalhar com RequireJs e está buscando uma alternativa. Eis aqui uma: Gulp + Browserify.</p>
+
+<h1>Gulp</h1>
+
+<p><img style="width:100px;" src="https://raw2.github.com/gulpjs/artwork/master/gulp-2x.png"/></p>
+
+<p>Gulp é um task runner (no mesmo estilo que o <a href="http://gruntjs.com/" target="_blank">Grunt</a>) que pode ajudar a automatizar a enorme quantidade de tarefas que você pode ter no seu projeto, tarefas essas do tipo:</p>
+
+<ul>
+<li>Compilar arquivos Coffeescript para Javascript.</li>
+<li>Compilar arquivos Sass para Css.</li>
+<li>Mover arquivos de um lugar para outro.</li>
+<li>Minify ou Uglify arquivos Javascript ou Css.</li>
+<li>Rodar testes de Javascript.</li>
+<li>E MUIIIIIITO mais.</li>
+</ul>
+
+<p>Não é difícil trabalhar com Gulp, acho que a grande mágica é conhecer os poderosos plugins que já existem. Uma boa &quot;googlada&quot; vai te ajudar bastante, não tem mistério.</p>
+
+<p>A <a href='http://gulpjs.com/' target='_blank'>Documentação oficial do Gulp</a> é bem legal, lá existem vários exemplos de como começar, instalar, configurar e etc.</p>
+
+<h3>RequireJs (AMD) x CommonJS (UMD)</h3>
+
+<p>Para entender melhor a contiuação do post, é interessante entender a diferença entre AMD (Asynchronous Definition Module) e UMD (Universal Definition Module).</p>
+
+<p>Existem vários frameworks facilitando a tarefa de carregar módulos Javascript, e convenhamos é algo importantíssimo. Todos eles praticamente são baseados em duas categorias, AMD e UMD.</p>
+
+<h5>AMD</h5>
+
+<p>A grande proposta de usar AMD é coseguir definir módulos Javascript com  as dependências, e carregá-los de forma assíncrona, ou seja, carregar os módulos Javascript sob demanda.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;MeuModulo&#39;</span><span class="p">,</span> 
+        <span class="p">[</span><span class="s1">&#39;DependenciaA&#39;</span><span class="p">,</span> <span class="s1">&#39;DependenciaB&#39;</span><span class="p">],</span> <span class="c1">//dependências desse módulo que podem ser outros módulos.</span>
+        <span class="kd">function</span> <span class="p">(</span> <span class="nx">depA</span><span class="p">,</span> <span class="nx">depB</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">MeuModulo</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">AlgumaCoisa</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Fiz alguma coisa&#39;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>     
+            <span class="k">return</span> <span class="nx">MeuModulo</span><span class="p">;</span>
+    <span class="p">});</span></code></pre></div>
+
+<p>O código acima é um exemplo simples de como implementar um módulo Javascritp usando <ahref="http://requirejs.org/" target="_blank">RequireJS</a>, que é um module loader baseado na idéia de AMD.</p>
+
+<p>Prós em usar RequireJs:</p>
+
+<ul>
+<li>Otimizado para trabalhar com browser.</li>
+<li>Possibilidade de Lazy Load.</li>
+<li>Facilita o gerenciamento de arquivos/módulos Javascript.</li>
+</ul>
+
+<p>Contras em usar RequireJS.</p>
+
+<ul>
+<li>Pode ser custoso/demorado configurar seu ambiente.</li>
+<li><strike>Pelo fato de ser assíncrono, não usar Bundle fica complicado.</strike></li>
+</ul>
+
+<h5>UMD</h5>
+
+<p>Já o UMD (Universal Module Definition) é um estilo de carregar módulos Javascript mais familiar para quem trabalha com ambiente NodeJS (Server side). CommonJs tem um foco maior na parte Server side, como exemplo disso o NodeJs implementa módulos baseado no CommonJS.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">moduloQualquer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ModuloQualquer&#39;</span><span class="p">);</span>
+    <span class="kd">function</span> <span class="nx">FuncaoQualquer</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;qualquer coisa&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">FuncaoQualquer</span><span class="p">;</span></code></pre></div>
+
+<p>Quem usa NodeJS certamente está mais familiarizado com essa sintaxe, que na minha opinião é bem mais simples. Para isto funcionar você obviamente precisa ter o NodeJS instalado.</p>
+
+<blockquote>
+<p>para instalar o NodeJS vale apena dar uma olhada no google, é bem simples. No linux é basicamente <code>sudo apt-get install NodeJS</code>.</p>
+</blockquote>
+
+<p>Mas se eu preciso do NodeJS para fazer este tipo de criação de módulo funcionar e sou um dev Front End, como vou fazer? </p>
+
+<h1>Browserify</h1>
+
+<p><img style="width:300px!important;" src="http://browserify.org/images/wizard.png"/></p>
+
+<p>É dificil explicar exatamente o que é o Browserify, mas vou tentar.
+Browserify é uma forma de carregar ou criar módulos Javascript usando uma sintaxe no estilo NodeJS. A principal diferença entre Browserify e RequireJs, é que o Browserify não é assíncrono, na verdade ele vai gerar um bundle com todas as suas dependências e módulos.</p>
+
+<p>Mãos a obra.</p>
+
+<p>Vou fazer setup de um ambiente com Backbone usando NodeJS para carregarmos nossos módulos e dependências, Browserify para gerarmos um bundle, e o Gulp pra agilizarmos tudo. \0/</p>
+
+<p>Pra começar, instale o NodeJS e o Npm (Node Package Manager). Dá uma olhada no google que é fácil.</p>
+
+<p>Com o NodeJS e o Npm instalados, monte uma estrutura de arquivos igual a esta:</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html">Gulp+Browserify
+----Js
+------Main.js 
+------Router.js
+------ViewQualquer.js    
+Index.html</code></pre></div>
+
+<p>Index.html - Nosso arquivo html simples com a tag main para exibirmos nossa view:</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+            <span class="nt">&lt;title&gt;</span>Gulp e Browserify<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+            <span class="nt">&lt;main</span> <span class="na">id=</span><span class="s">&quot;conteudo&quot;</span><span class="nt">&gt;&lt;/main&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
+
+<p>Main.js - Digamos que seria nosso Js principal. Nele carregaremos o Backbone.Router, que na verdade é um módulo e o instanciaremos chamando o método <code>start</code>:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Router</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./router&#39;</span><span class="p">)</span>
+<span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">();</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span></code></pre></div>
+
+<p>Router.js - Nosso módulo que herda da classe Router do Backbone. Ele tem como dependência uma view (&#39;viewQualquer&#39;):</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Backbone</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;backbone&#39;</span><span class="p">)</span>
+<span class="nx">ViewQualquer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./viewQualquer&#39;</span><span class="p">)</span>
+<span class="nx">$</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;jquery&#39;</span><span class="p">)</span>
+<span class="nx">Backbone</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="nx">$</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">routes</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;&quot;</span><span class="o">:</span><span class="s2">&quot;home&quot;</span>   
+    <span class="p">},</span>
+    <span class="nx">start</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">home</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>     
+        <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ViewQualquer</span><span class="p">({</span><span class="nx">el</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#conteudo&quot;</span><span class="p">)});</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></div>
+
+<p>viewQualquer.js - Uma view simples que renderizará um h1 com o texto &quot;Gulp + Browserify !&quot; na tela:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Backbone</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;backbone&#39;</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>  
+    <span class="nx">initialize</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">el</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">el</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;h1&gt;Gulp + Browserify !&lt;/h1&gt;&quot;</span><span class="p">);</span>        
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></div>
+
+<p>Repare que router.js e viewQualquer.js têm como dependência o Backbone, por isso o <code>require(&#39;backbone&#39;), require(&#39;jquery&#39;)</code>, e assim com qualquer dependência.</p>
+
+<p>Para que nossa aplicação consiga carregar as dependêcias externas como Backbone e Jquery, precisamos instalá-las usando o Npm.</p>
+
+<p><code>npm install -g backbone jquery</code></p>
+
+<blockquote>
+<p><code>-g</code> significa que estamos instalando o módulo de forma global.
+Para adicionar os módulos em um arquivo package.json, é só adicionar <code>--save-dev</code>.</p>
+</blockquote>
+
+<p>Já que estamos brincando com o Npm, vamos instalar logo o Browserify.</p>
+
+<p><code>npm install -g browserify</code></p>
+
+<h3>Agora a mágica acontece</h3>
+
+<p>Com tudo instalado, vamos então usar de fato o Browserify. Acesse o terminal, vá até o diretório do projeto e execute: <code>browserify main.js -o bundle.js</code>.</p>
+
+<p>Perceba que um arquivo com o nome <code>bundle.js</code> foi criado no seu projeto, e é exatamente isso que o Browserify se compromete em fazer. Ele gerou um bundle com todas as dependências do projeto, tudo em um único arquivo js.
+Agora é só adicionar o bundle como referência no index.html e rodar a aplicação. Você deverá ver escrito &quot;Gulp + Browserify !&quot;.</p>
+
+<p>Legal né? Mas temos ainda um problema chato, qualquer mudança que fizermos em algum arquivo Javascript, teremos que rodar o comando <code>Browserify main.js -o bundle.js</code> novamente para atualizar o bundle. E isso não é legal!</p>
+
+<h3>Lembra do Gulp?</h3>
+
+<p>Eu disse que o Gulp ajuda em tarefas chatas de nossa aplicação, e essa pode ser uma em que ele pode ajudar. Para isso vamos criar dentro do diretório Js um arquivo chamado gulpfile.js.</p>
+
+<p>gulpfile.js - Arquivo onde ficarão nossas tasks configuradas. A idéia é fazer o Gulp executar tarefas automaticamente através deste arquivo. Vou comentar o código pra tentar simplificar:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//carregar as dependências</span>
+<span class="kd">var</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp&#39;</span><span class="p">);</span><span class="c1">//Gulp</span>
+<span class="kd">var</span> <span class="nx">browserify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-browserify&#39;</span><span class="p">);</span> <span class="c1">// Gulp-Browserify um plugin do browserify com gulp</span>
+<span class="kd">var</span> <span class="nx">rename</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-rename&#39;</span><span class="p">);</span> <span class="c1">// Gulp-rename para renomear nome de arquivos</span>
+
+
+<span class="c1">//Crio uma task chamada Browserify, esta task pegará o arquivo main.js e fará o bundle a partir dele.</span>
+<span class="c1">// depois uso o rename para renomear o arquivo de bundle que foi gerado. Neste caso, uso o próprio nome bunlde, e por fim o destino desse novo arquivo.</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s2">&quot;browserify&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">&#39;main.js&#39;</span><span class="p">)</span>     
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">browserify</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;bundle.js&#39;</span><span class="p">))</span>
+        <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;bundle/&#39;</span><span class="p">))</span>
+<span class="p">});</span></code></pre></div>
+
+<blockquote>
+<p>Para que as dependências funcionem, você precisará usar 
+novamente o Npm. <code>npm install -g gulp-browserify gulp-rename</code></p>
+</blockquote>
+
+<p>Agora aquele trabalho que você tinha após cada alteração em um arquivo js de regerar o bundle acabou! O Gulp faz isso automaticamente com essa task criada. Para isto, basta rodar no command line <code>gulp &lt;task&gt;</code>, no nosso caso <code>gulp browserify</code>.</p>
+
+<p>Mesmo assim ainda não está legal. De qualquer, forma temos que rodar o comando do Gulp toda vez que algo mudar, o ideal é que o Gulp ficasse observando cada mudança e rodasse o comando sozinho, concorda?
+Existe um plugin para isso, Gulp-Watch. </p>
+
+<blockquote>
+<p>npm install -g gulp-watch</p>
+</blockquote>
+
+<p>Voltando ao gulpfile.js.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">gulp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">browserify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-browserify&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">rename</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-rename&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">watch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;gulp-watch&#39;</span><span class="p">);</span><span class="c1">//Adicionando o gulp-watch</span>
+      
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s2">&quot;browserify&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="s1">&#39;main.js&#39;</span><span class="p">)</span>     
+            <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">browserify</span><span class="p">())</span>
+            <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">rename</span><span class="p">(</span><span class="s1">&#39;bundle.js&#39;</span><span class="p">))</span>
+            <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="s1">&#39;bundle/&#39;</span><span class="p">))</span>
+    <span class="p">});</span>
+<span class="c1">//Cria uma task chamada watch que ficará observando a mudança dentro da pasta js em qualquer arquivo .js e chamará a task browserify</span>
+    <span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s2">&quot;watch&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>    
+        <span class="nx">gulp</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s2">&quot;**/*.js&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;browserify&quot;</span><span class="p">]);</span>
+    <span class="p">});</span></code></pre></div>
+
+<p>Pronto. Agora qualquer mudança que fizermos dentro da pasta Js, o Gulp perceberá isso e rodará a task &#39;browserify&#39; que irá gerar o bundle automaticamente. </p>
+
+<p>Tá com preguiça de testar tudo? Botei no <a href="https://github.com/renancarvalho/Gulp-Browserify-Backbone" target="_blank">Github</a> :)</p>
+
+<p>Para funcionar é só dar um clone no projeto e digitar <code>npm install</code>.</p>
+
+<p>Conclusão:</p>
+
+<p>Nem sempre existe melhor solução. Usando Browserify você tem apenas uma requisição para o server e usando Uglify esse arquivo fica bem menor, melhorando mais ainda. Por outro lado é impossivel fazer Lazy Load. Acho que é mais facil inicialmente usar NodeJS e Browserify. Mas como disse antes, é śo uma alternativa.</p>
+
+<p>Valeu galera um abraço!</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Renan Carvalho </h4>
+                    	<!-- Author Bio -->
+                    	<p> 
+                    		Começou a desenvolver software com 17 anos, e trabalha há 2 anos somente com frameworks javascript.
+                            Surfista e músico frustrado e um adorador de cerveja.
+						</p>	
+						<p> 
+								Started as a software developer by the age of 17, and have been working with Javascript frameworks for 2 years. Frustrated surtfist and musician and appreciator of good beer.
+                    	</p>
+                    </article>
+                </section>                
+            
+
+            <section class="share">
+                <h4>Compartilhe</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=GULP E BROWSERIFY, UMA ALTERNATIVA AO REQUIRE.JS&amp;url=wwww.rcarvalhojs.com/javascript/2014/08/02/browserify-gulp.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=wwww.rcarvalhojs.com/javascript/2014/08/02/browserify-gulp.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=wwww.rcarvalhojs.com/javascript/2014/08/02/browserify-gulp.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+        	
+        </footer>
+
+		<div id="disqus_thread"></div>
+			<script type="text/javascript">
+			    var disqus_shortname = 'rcarvalhojscom';
+
+			    (function () {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </article>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright"><a href="">Renan Carvalho JavaScript blog.</a> &copy; </section>
+            
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>   
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-51790311-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+	</script>
+	<script type="text/javascript">    
+        var disqus_shortname = 'rcarvalhojscom';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();    
+    </script>
+</body>
+
+    
+    
+</html>

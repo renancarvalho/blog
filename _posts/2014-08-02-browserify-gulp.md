@@ -61,7 +61,7 @@ Prós em usar RequireJs:
 Contras em usar RequireJS.
 
 - Pode ser custoso/demorado configurar seu ambiente.
-- Pelo fato de ser assíncrono, não usar Bundle fica complicado.
+- <strike>Pelo fato de ser assíncrono, não usar Bundle fica complicado.</strike>
 
 
 #####UMD
