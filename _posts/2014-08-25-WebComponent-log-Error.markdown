@@ -6,7 +6,7 @@ categories: Javascript
 ---
 
 
-Hey there, Log-Error is a Web Component (made using <a href='http://www.polymer-project.org/' target='_blank'>Google Polymer)</a> that helps you manage 
+Hey there, Log-Error is a Web Component (the first one that I made using <a href='http://www.polymer-project.org/' target='_blank'>Google Polymer)</a> that helps you manage 
 Javascript errors that maybe is not available for you to debug.
 
 The idea of this Web Component is just "listen" to every error that can happen in your App, then send it to your Api.
