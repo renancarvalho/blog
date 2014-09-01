@@ -21,43 +21,42 @@
 
 </head>
 <body class="home-template">
-
-    
+  
     {{ content }}
-
+  
     <footer class="site-footer">
         <a class="subscribe icon-feed" href="{{ site.baseurl }}rss.xml"><span class="tooltip">Subscribe!</span></a>
         <div class="inner">
-             <section class="copyright"><a href="{{ site.baseurl }}">{{ site.name }}</a> &copy; {{date format="YYYY"}}</section>
-            
-        </div>
-    </footer>
+           <section class="copyright"><a href="{{ site.baseurl }}">{{ site.name }}</a> &copy; {{date format="YYYY"}}</section>
+           
+       </div>
+   </footer>
 
-    
-    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="/assets/js/index.js"></script>   
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-51790311-1']);
-        _gaq.push(['_trackPageview']);
+   
+   <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+   <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+   <script type="text/javascript" src="/assets/js/index.js"></script>   
+   <script type="text/javascript">
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-51790311-1']);
+   _gaq.push(['_trackPageview']);
 
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-	</script>
-	<script type="text/javascript">    
-        var disqus_shortname = 'rcarvalhojscom';
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();    
-    </script>
+   (function () {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script type="text/javascript">    
+var disqus_shortname = 'rcarvalhojscom';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();    
+</script>
 </body>
 
-    
-    
+
+
 </html>

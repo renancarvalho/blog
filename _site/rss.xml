@@ -8,7 +8,16 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Sat, 02 Aug 2014 16:15:00 -0300</pubDate>
+    <pubDate>Mon, 25 Aug 2014 20:28:00 -0300</pubDate>
+    <item>
+      <title>USING LOG-ERROR WEB COMPONENT</title>
+      <link>wwww.rcarvalhojs.com/javascript/2014/08/25/WebComponent-log-Error.html</link>
+      <description>&lt;p&gt;Hey there, Log-Error is a Web Component (the first one that I made using &lt;a href='http://www.polymer-project.org/' target='_blank'&gt;Google Polymer)&lt;/a&gt; that helps you manage 
+Javascript errors that maybe is not available for you to debug.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 25 Aug 2014 20:28:00 -0300</pubDate>
+      <dc:date>2014-08-25T20:28:00-03:00</dc:date>
+    </item>
     <item>
       <title>GULP E BROWSERIFY, UMA ALTERNATIVA AO REQUIRE.JS</title>
       <link>wwww.rcarvalhojs.com/javascript/2014/08/02/browserify-gulp.html</link>
@@ -58,6 +67,6 @@ When I first started studing Javascript, I saw myself spending a lot of time try
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2014-08-02T16:15:00-03:00</dc:date>
+    <dc:date>2014-08-25T20:28:00-03:00</dc:date>
   </channel>
 </rss>

@@ -23,7 +23,7 @@ The code is avaiable on <a href='https://github.com/renancarvalho/log-error' tar
 </pre>
 
 
-####After that, lets import polymer.js, log-error.html and exceptionHandle.js
+####After that, lets import polymer.html, log-error.html and exceptionHandle.js
 
 <pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"bower_components/polymer/polymer.html"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre>
