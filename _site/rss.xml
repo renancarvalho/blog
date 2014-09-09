@@ -8,7 +8,15 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Mon, 25 Aug 2014 20:28:00 -0300</pubDate>
+    <pubDate>Mon, 01 Sep 2014 20:28:00 -0300</pubDate>
+    <item>
+      <title>BACKBONE E BROWSERIFY</title>
+      <link>wwww.rcarvalhojs.com/javascript/2014/09/01/backbone-browserify.html</link>
+      <description>&lt;p&gt;Salve salve galera!!!! Este post é o primeiro que escrevo para o &lt;a href=&quot;https://github.com/blogmv&quot; target=&quot;_blank&quot;&gt;BlogMV*&lt;/a&gt;, e a idéia é mostrar como fazer o setup do backbone junto com o browserify. Para quem não curte muito o RequireJS, ou simplesmente prefere carregar modulos Javascritp baseados em UMD, este post vai ser bem legal. E para quem só quer aprender alguma coisa nova, também vai ser legal..hehehe&lt;/p&gt;
+</description>
+      <pubDate>Mon, 01 Sep 2014 20:28:00 -0300</pubDate>
+      <dc:date>2014-09-01T20:28:00-03:00</dc:date>
+    </item>
     <item>
       <title>USING LOG-ERROR WEB COMPONENT</title>
       <link>wwww.rcarvalhojs.com/javascript/2014/08/25/WebComponent-log-Error.html</link>
@@ -67,6 +75,6 @@ When I first started studing Javascript, I saw myself spending a lot of time try
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2014-08-25T20:28:00-03:00</dc:date>
+    <dc:date>2014-09-01T20:28:00-03:00</dc:date>
   </channel>
 </rss>
