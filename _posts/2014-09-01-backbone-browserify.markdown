@@ -70,7 +70,7 @@ Tenha em mente também, que esse tipo de definição de módulo, o navegador nem
 Então como faremos para usarmos definição de módulos baseado UMD no navegador?
 
 
-#Broserify
+#Browserify
 
  <a href="http://browserify.org/" target="_blank">Browserify</a> pode ser uma das formas de resolver esse problema. Basicamente, o browserify vai gerar uma tag "script" da sua aplicação, e ela o navegador entenderá, o legal é que essa única tag tem tudo que sua aplicação precisa. Imaginem um bundle. É bem por ai..
 
