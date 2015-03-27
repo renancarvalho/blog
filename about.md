@@ -8,7 +8,3 @@ Acredita e se interessa por desenvolvimento ágil usando práticas como TDD e BD
 Já tentou ser surfista, mas não deu certo.
 Já teve banda de rock, mas também não deu certo.
 Adorador de cervejas, especialmente as de trigo, amante da boa música e um viajante. Nas horas vagas, jogar poker valendo um trocado é uma boa opção de diversão.
-<<<<<<< HEAD
-
-=======
->>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
