@@ -1,0 +1,105 @@
+---
+layout: post
+title:  "Renan Carvalho"
+visible: "false"
+date:   2016-03-27 10:18:00
+<!-- categories: Resume -->
+---
+
+
+
+
+
+<br>
+##Why a Developer ?
+
+When I was at high school, I decided to take a computer technology course. I remember having classes about Pascal and Delphi and being a relly good student at that subject, when everybody else was trying to copy my solutions for the questions to get good grades. By that time, I felt that software was what I'd like to do in my life.
+Now I'm a developer with 7 years of experience and fully happy with my occupation. The nicest thing about it, is the fact that everyday I'm learning something new, that goes all the way from solving a code to people's behavior. The daily challanges and the possibility of making someone's life easier with my skills is what keeps me moving on. That is my awesome adventure as a Software Developer.
+
+##Skills
+
+* Agile pratices like TDD and BDD
+
+* Good comprehension of Javascript Code
+ 
+* Motivated
+
+* Team work
+
+* Used to build Single Page Applications  
+
+##Experience (Latest 3)
+
+###[Chute](http://www.getchute.com) - Current Job (remote from Brazil)
+
+Chute is a company that powers the visual content engine for brands by empowering marketers to turn visual content into engagement and actionable insights. By capturing photos and videos from customers and obtaining permission to use their content.  
+
+*	**Position**: Front-End Engineer
+
+
+*	**Responsibilities**: Build and mantain displays from Chute's products. It is basically a library with tools that accelerate the development of a new display or campaign to our clients. Also responsible for mantain intern products that allows chute to control all the data and content of a display.
+	
+*	**Technologies**: BackboneJs, ReacjJS, Underscore, Backbone+Marionette, NodeJs, Postgres, Jasmine, Rails, HTML5, SASS.
+	
+*	**Displays example**:
+
+	- 	[FisherPrice](http://www.fisher-price.com/en_US/baby/fpbaby/be-a-fpbaby/gallery/index.html#)
+	-	[NBA](http://www.nba.com/style)
+	
+	
+### [XP Investimentos](http://www.xpi.com.br) - (2011 - 2014)
+
+*	**Position**: Senior Full Stack Developer
+
+
+*   **Projects**:
+	-	Implementation of the Private Pension System, integrated with the SulAmerica Insurance Brockarage, in which was possible to hire the plan directly from XP Investimentos website, without any need of an intermediary advisor.
+	
+	- Implementation of the IPO system integrated with BMP&Bovespa(stock exchange). The system allows the company to participate in other companies IPO, and give their clients the power to pre-order stocks.
+	
+	- Implementation of the Suitalibilty system, that allows the user to define his own investor profile. [system link](http://www.xpi.com.br/como-comecar/descubra-o-seu-perfil-de-investidor.aspx)
+￼
+* **Technologies**: AspNet MVC, Aspnet WebForms, WebServices, C#, Nhibernate, TDD, BDD, CoffeeScript/Javascript, BackboneJs, CSS3, HTML5, JQuery, Stored Procedures and Oracle.
+Frameworks used for testing: Jasmine (Javascript testing), Nunit (Unit Testing), SpecFlow for BDD.
+
+
+### [CTIS Tecnologia S/A](http://www.ctis.com.br/br/) - (2008 - 2011)
+
+*	**Position**: Mid Level Software Developer
+
+
+*   **Projects**:
+	-	Implementation of the research system for Pocket Pc, used by IBGE (Statistics Brazilian Institute) in national surveys, such as the Monthly Employment Survey (PME) and the National Household Sample Survey (PNAD).
+	￼
+* **Technologies**: C#, Asp.net 3.5 (Compact Framework), SqlServer, Oracle, Stored Procedures.
+
+
+##Languages
+- **English** : Advanced
+- **Portuguese** : Native 
+
+
+##Education
+
+- jun/2016: Bachelor in Information Technology at Universidade Estácio de Sá (UNESA – RJ).
+
+
+##Courses
+
+- ReactJs and Flux (FrontEnd Masters)
+- Html5 and Css3 (Lambda3)
+
+## Talks and events
+- XP TechTalk, talking about RequireJs and Javascript modules.
+- Third edition of Floripa Devs Meetup, talking about best pratices with BackboneJS.
+- Fifth edition of Floripa Devs Meetup, talking about TDDxUnit tests.
+
+##Links
+
+- [github](https://github.com/renancarvalho)
+- [blog](http://www.rcarvalhojs.com)
+- [stackverflow](http://stackoverflow.com/users/3200473/rcarvalho)
+- [twitter](https://twitter.com/rcarvalhojs)
+
+
+
