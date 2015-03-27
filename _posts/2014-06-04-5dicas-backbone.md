@@ -258,7 +258,11 @@ salvarCliente:->
 		@save()
 {%endhighlight%}
 
+<<<<<<< HEAD
 > Ao passar True como parâmetro na function 'isValid()', Backbone irá performar todas as suas validações escritas dentro da function 'validation'.
+=======
+> Ao passar True como parâmetro na function 'isValid()', o Backbone performa todas as suas validações escritas dentro da function 'validation'.
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 Esta é uma forma de garantir que seu model não faça um `post` em um estado inválido.
 
 
@@ -267,7 +271,11 @@ Esta é uma forma de garantir que seu model não faça um `post` em um estado in
 #### Conclusão ####
 
 
+<<<<<<< HEAD
 Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações 'ruins' com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma 'tradicional', ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   
+=======
+Três das cinco dicas citadas (1, 2 e 5), nada mais são do que a própria convenção usada no Backbone. Se você realmente se preocupa com a qualidade do seu código, vale a pena estudar mais afundo o funcionamento do framework e algumas convenções, o mesmo pode ajudar em qualquer outro framework. Geralmente algumas dessas implementações 'ruims' com Backbone são causadas pelo fato do desenvolvedor não conhecer o funcionamento do framework, e optar por resolver o problema usando Jquery/Javascript da forma 'tradicional', ou alguma linha de raciocínio divergente com a ideia proposta pela arquitetura MVC.   
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 
 Seguindo esses passos, menos cabelos brancos...
 

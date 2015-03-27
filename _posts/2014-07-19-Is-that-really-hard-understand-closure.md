@@ -2,11 +2,19 @@
 layout: post
 title: "IS IT REALLY HARD TO UNDERSTAND CLOSURES?"
 date:   2014-07-19 21:06:00
+<<<<<<< HEAD
 categories: Javascript
 ---
 
 What is closure and why should I use it?
 When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, **Why should I use Closures?**.
+=======
+categories: Javascript.
+---
+
+What is closure and why should I use it?
+When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing. **Why should I use Closures?**.
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 
 >The main idea here is try to show the way that I started to understand closure, and also make you spend less time than me.
 
@@ -92,11 +100,15 @@ In our example, `getTypeOfCar()` receives a function that has access to the lexi
 The function `getTypeOfCar()` is a kind of closure! Closures are blocks of code that can be executed by keeping the original context that they were created (here the `getTypeOfCar()` is the closure), and this simple example shows one of the benefits of this technique (private and public members).
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 Other Example of Closure:
 
  
 {%highlight javascript %}
+<<<<<<< HEAD
     
     function GiftList (){
     var List = [];
@@ -119,6 +131,30 @@ Other Example of Closure:
     list.seeMyList();
     // "Purse - Shoes - Watch"
     
+=======
+	
+function GiftList (){
+    var _list = [];
+    var orderList = function(){
+			return _list.sort();
+		}
+	return { 
+		 	addNewGift: function(gift){
+				_list.push(gift);
+			},
+	     seeMyList: function(){
+		return orderList(_list).join(" - ");
+	}
+  };	
+};
+var list = new GiftList();
+list.addNewGift("Purse");
+list.addNewGift("Shoes");
+list.addNewGift("Watch");
+list.seeMyList();
+// "Purse - Shoes - Watch"
+
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 {%endhighlight%}
 
 

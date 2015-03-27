@@ -26,6 +26,7 @@ about: 'about.html'
 
     {% for post in paginator.posts %}
 
+<<<<<<< HEAD
          {% if post.visible != "false" %}
             <article class="post">
                 <header class="post-header">
@@ -38,6 +39,18 @@ about: 'about.html'
                 </section>
             </article>
         {% endif %}
+=======
+    <article class="post">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date_to_string }}</time> {{!tags prefix="on "}}</span>
+            <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            {{ post.excerpt }}
+        </section>
+    </article>
+>>>>>>> efa754fd3c9adcfc76a24c33038f2a24a8a40831
 
     {% endfor %}
 
