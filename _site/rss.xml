@@ -8,16 +8,16 @@
     <title>Renan Carvalho JavaScript blog.</title>
     <link>wwww.rcarvalhojs.com</link>
     <description>JavaScript - CoffeeScript blog.</description>
-    <pubDate>Sun, 27 Mar 2016 07:18:00 -0300</pubDate>
+    <pubDate>Fri, 27 Mar 2015 07:18:00 -0300</pubDate>
     <item>
       <title>Renan Carvalho</title>
-      <link>wwww.rcarvalhojs.com/2016/03/27/resume.html</link>
+      <link>wwww.rcarvalhojs.com/2015/03/27/resume.html</link>
       <description>&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 
 &lt;h2&gt;Why a Developer ?&lt;/h2&gt;
 </description>
-      <pubDate>Sun, 27 Mar 2016 07:18:00 -0300</pubDate>
-      <dc:date>2016-03-27T07:18:00-03:00</dc:date>
+      <pubDate>Fri, 27 Mar 2015 07:18:00 -0300</pubDate>
+      <dc:date>2015-03-27T07:18:00-03:00</dc:date>
     </item>
     <item>
       <title>BACKBONE E BROWSERIFY</title>
@@ -53,16 +53,13 @@ Javascript errors that maybe is not available for you to debug.&lt;/p&gt;
       <dc:date>2014-07-25T15:06:00-03:00</dc:date>
     </item>
     <item>
-      <title>Is That Really Hard Understand Closure</title>
-      <link>wwww.rcarvalhojs.com/2014/07/19/Is-that-really-hard-understand-closure.html</link>
-      <description>&lt;p&gt;What is closure and why should I use it?&lt;/p&gt;
-
-&lt;h1&gt;When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, &lt;strong&gt;Why should I use Closures?&lt;/strong&gt;.&lt;/h1&gt;
-
-&lt;h2&gt;categories: Javascript.&lt;/h2&gt;
+      <title>IS IT REALLY HARD TO UNDERSTAND CLOSURES?</title>
+      <link>wwww.rcarvalhojs.com/javascript/2014/07/19/Is-that-really-hard-understand-closure.html</link>
+      <description>&lt;p&gt;What is closure and why should I use it?
+When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, &lt;strong&gt;Why should I use Closures?&lt;/strong&gt;.&lt;/p&gt;
 </description>
-      <pubDate>Sat, 19 Jul 2014 00:00:00 -0300</pubDate>
-      <dc:date>2014-07-19T00:00:00-03:00</dc:date>
+      <pubDate>Sat, 19 Jul 2014 18:06:00 -0300</pubDate>
+      <dc:date>2014-07-19T18:06:00-03:00</dc:date>
     </item>
     <item>
       <title>GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER</title>
@@ -88,6 +85,6 @@ Javascript errors that maybe is not available for you to debug.&lt;/p&gt;
       <pubDate>Tue, 03 Jun 2014 07:18:00 -0300</pubDate>
       <dc:date>2014-06-03T07:18:00-03:00</dc:date>
     </item>
-    <dc:date>2016-03-27T07:18:00-03:00</dc:date>
+    <dc:date>2015-03-27T07:18:00-03:00</dc:date>
   </channel>
 </rss>
