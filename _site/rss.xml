@@ -20,14 +20,6 @@
       <dc:date>2016-03-27T07:18:00-03:00</dc:date>
     </item>
     <item>
-      <title>FEEDBACK É SEMPRE BOM, IMAGINA DO SEU CÓDIGO...</title>
-      <link>wwww.rcarvalhojs.com/tdd/2015/02/03/tdd-feedback.html</link>
-      <description>&lt;p&gt;Uma das coisas que mais me consem tempo é escrever posts, recentemente troquei de emprego e tive que mudar de cidade, o que consumiu um pouco de tempo, so here we go again. :)&lt;/p&gt;
-</description>
-      <pubDate>Tue, 03 Feb 2015 08:18:00 -0200</pubDate>
-      <dc:date>2015-02-03T08:18:00-02:00</dc:date>
-    </item>
-    <item>
       <title>BACKBONE E BROWSERIFY</title>
       <link>wwww.rcarvalhojs.com/javascript/2014/09/01/backbone-browserify.html</link>
       <description>&lt;p&gt;Salve salve galera!!!! Este post é o primeiro que escrevo para o &lt;a href=&quot;https://github.com/blogmv&quot; target=&quot;_blank&quot;&gt;BlogMV*&lt;/a&gt;, e a idéia é mostrar como fazer o setup do backbone junto com o browserify. Para quem não curte muito o RequireJS, ou simplesmente prefere carregar modulos Javascritp baseados em UMD, este post vai ser bem legal. E para quem só quer aprender alguma coisa nova, também vai ser legal..hehehe&lt;/p&gt;
@@ -61,13 +53,16 @@ Javascript errors that maybe is not available for you to debug.&lt;/p&gt;
       <dc:date>2014-07-25T15:06:00-03:00</dc:date>
     </item>
     <item>
-      <title>IS IT REALLY HARD TO UNDERSTAND CLOSURES?</title>
-      <link>wwww.rcarvalhojs.com/javascript/2014/07/19/Is-that-really-hard-understand-closure.html</link>
-      <description>&lt;p&gt;What is closure and why should I use it?
-When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, &lt;strong&gt;Why should I use Closures?&lt;/strong&gt;.&lt;/p&gt;
+      <title>Is That Really Hard Understand Closure</title>
+      <link>wwww.rcarvalhojs.com/2014/07/19/Is-that-really-hard-understand-closure.html</link>
+      <description>&lt;p&gt;What is closure and why should I use it?&lt;/p&gt;
+
+&lt;h1&gt;When I first started studing Javascript, I saw myself spending a lot of time trying to figured out what was  closure, how it worked and the most important thing, &lt;strong&gt;Why should I use Closures?&lt;/strong&gt;.&lt;/h1&gt;
+
+&lt;h2&gt;categories: Javascript.&lt;/h2&gt;
 </description>
-      <pubDate>Sat, 19 Jul 2014 18:06:00 -0300</pubDate>
-      <dc:date>2014-07-19T18:06:00-03:00</dc:date>
+      <pubDate>Sat, 19 Jul 2014 00:00:00 -0300</pubDate>
+      <dc:date>2014-07-19T00:00:00-03:00</dc:date>
     </item>
     <item>
       <title>GERENCIE OS ESTADOS QUE SUA APLICAÇÃO PODE TER</title>
