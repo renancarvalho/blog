@@ -39,11 +39,13 @@ Chute is a company that powers the visual content engine for brands by empowerin
 	
 *	**Displays example**:
 
-	- 	[FisherPrice](http://www.fisher-price.com/en_US/baby/fpbaby/be-a-fpbaby/gallery/index.html#)
+	- 	[FisherPrice](http://www.fisher-price.com/en_US/baby/fpbaby/be-a-fpbaby/gallery/index.html)
 	-	[NBA](http://www.nba.com/style)
 	
 	
 ### [XP Investimentos](http://www.xpi.com.br) - (2011 - 2014)
+
+XP Investimentos is one of the biggest independent stock exchange companies in South America. The main idea of the company is to change the way Brazilians invest their money, with a plataform that allows clients to invest in several different financial institutes.
 
 *	**Position**: Senior Full Stack Developer
 
@@ -59,7 +61,10 @@ Chute is a company that powers the visual content engine for brands by empowerin
 Frameworks used for testing: Jasmine (Javascript testing), Nunit (Unit Testing), SpecFlow for BDD.
 
 
-### [CTIS Tecnologia S/A](http://www.ctis.com.br/br/) - (2008 - 2011)
+### [CTIS Tecnologia S/A](http://www.ctis.com.br/br/) - (2008 - 2011)  - Alocated in IBGE
+
+IBGE is the agency responsible for statistical and geographic surveys about Brazil. IBGE performs a national census every ten years, and questionnaires account for information such as age, household income, literacy, education and occupation.
+
 
 *	**Position**: Mid Level Software Developer
 
@@ -91,11 +96,9 @@ Frameworks used for testing: Jasmine (Javascript testing), Nunit (Unit Testing),
 - Fifth edition of Floripa Devs Meetup, talking about TDDxUnit tests.
 
 ##Links
-
 - [github](https://github.com/renancarvalho)
 - [blog](http://www.rcarvalhojs.com)
 - [stackverflow](http://stackoverflow.com/users/3200473/rcarvalho)
 - [twitter](https://twitter.com/rcarvalhojs)
-
 
 
