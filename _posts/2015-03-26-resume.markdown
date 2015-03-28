@@ -6,7 +6,12 @@ date:   2015-03-27 10:18:00
 ---
 
 
-<br>
+- 26 years old
+
+- Itapema, SC - Brazil
+
+- renansscarvalho@gmail.com
+
 ##Why a Developer ?
 
 When I was at high school, I decided to take a computer technology course. I remember having classes about Pascal and Delphi and being a relly good student at that subject, when everybody else was trying to copy my solutions for the questions to get good grades. By that time, I felt that software was what I'd like to do in my life.
