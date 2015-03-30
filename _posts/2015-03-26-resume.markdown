@@ -14,8 +14,8 @@ date:   2015-03-27 10:18:00
 
 ##Why a Developer ?
 
-When I was at high school, I decided to take a computer technology course. I remember having classes about Pascal and Delphi and being a relly good student at that subject, when everybody else was trying to copy my solutions for the questions to get good grades. By that time, I felt that software was what I'd like to do in my life.
-Now I'm a developer with 7 years of experience and fully happy with my occupation. The nicest thing about it, is the fact that everyday I'm learning something new, that goes all the way from solving a code to people's behavior. The daily challanges and the possibility of making someone's life easier with my skills is what keeps me moving on. That is my awesome adventure as a Software Developer.
+When I was at high school, I decided to take a computer technology course. I remember having classes about Pascal and Delphi and being a really good student at that subject, when everybody else was trying to copy my solutions for the questions to get good grades. By that time, I felt that software was what I'd like to do in my life.
+Now I'm a developer with 7 years of experience and fully happy with my occupation. The nicest thing about it, is the fact that everyday I'm learning something new, that goes all the way from solving a code to people's behavior. The daily challenges and the possibility of making someone's life easier with my skills is what keeps me moving on. That is my awesome adventure as a Software Developer.
 
 ##Skills
 
@@ -29,7 +29,7 @@ Now I'm a developer with 7 years of experience and fully happy with my occupatio
 
 * Used to build Single Page Applications  
 
-##Experience (Latest 3)
+##Experience (Last 3)
 
 ###[Chute](http://www.getchute.com) - Current Job (remote from Brazil)
 
@@ -38,7 +38,7 @@ Chute is a company that powers the visual content engine for brands by empowerin
 *	**Position**: Front-End Engineer
 
 
-*	**Responsibilities**: Build and mantain displays from Chute's products. It is basically a library with tools that accelerate the development of a new display or campaign to our clients. Also responsible for mantain intern products that allows chute to control all the data and content of a display.
+*	**Responsibilities**: Build and maintain displays from Chute's products. It is basically a library with tools that accelerate the development of a new display or campaign to our clients. Also responsible for maintain intern products that allows chute to control all the data and content of a display.
 	
 *	**Technologies**: BackboneJs, ReacjJS, Underscore, Backbone+Marionette, NodeJs, Postgres, Jasmine, Rails, HTML5, SASS.
 	
@@ -50,23 +50,23 @@ Chute is a company that powers the visual content engine for brands by empowerin
 	
 ### [XP Investimentos](http://www.xpi.com.br) - (2011 - 2014)
 
-XP Investimentos is one of the biggest independent stock exchange companies in South America. The main idea of the company is to change the way Brazilians invest their money, with a plataform that allows clients to invest in several different financial institutes.
+XP Investimentos is one of the biggest independent stock exchange companies in South America. The main idea of the company is to change the way Brazilians invest their money, with a platform that allows clients to invest in several different financial institutes.
 
 *	**Position**: Senior Full Stack Developer
 
 
 *   **Projects**:
-	-	Implementation of the Private Pension System, integrated with the SulAmerica Insurance Brockarage, in which was possible to hire the plan directly from XP Investimentos website, without any need of an intermediary advisor.
+	-	Implementation of the Private Pension System, integrated with the SulAmerica Insurance Brokerage, in which was possible to hire the plan directly from XP Investimentos website, without any need of an intermediary advisor.
 	
 	- Implementation of the IPO system integrated with BMP&Bovespa(stock exchange). The system allows the company to participate in other companies IPO, and give their clients the power to pre-order stocks.
 	
-	- Implementation of the Suitalibilty system, that allows the user to define his own investor profile. [system link](http://www.xpi.com.br/como-comecar/descubra-o-seu-perfil-de-investidor.aspx)
+	- Implementation of the Suitability system, that allows the user to define his own investor profile. [system link](http://www.xpi.com.br/como-comecar/descubra-o-seu-perfil-de-investidor.aspx)
 ￼
 * **Technologies**: AspNet MVC, Aspnet WebForms, WebServices, C#, Nhibernate, TDD, BDD, CoffeeScript/Javascript, BackboneJs, CSS3, HTML5, JQuery, Stored Procedures and Oracle.
 Frameworks used for testing: Jasmine (Javascript testing), Nunit (Unit Testing), SpecFlow for BDD.
 
 
-### [CTIS Tecnologia S/A](http://www.ctis.com.br/br/) - (2008 - 2011)  - Alocated in IBGE
+### [CTIS Tecnologia S/A](http://www.ctis.com.br/br/) - (2008 - 2011)  - Outsourced in IBGE
 
 IBGE is the agency responsible for statistical and geographic surveys about Brazil. IBGE performs a national census every ten years, and questionnaires account for information such as age, household income, literacy, education and occupation.
 
@@ -97,7 +97,7 @@ IBGE is the agency responsible for statistical and geographic surveys about Braz
 
 ## Talks and events
 - XP TechTalk, talking about RequireJs and Javascript modules.
-- Third edition of Floripa Devs Meetup, talking about best pratices with BackboneJS.
+- Third edition of Floripa Devs Meetup, talking about best practices with BackboneJS.
 - Fifth edition of Floripa Devs Meetup, talking about TDDxUnit tests.
 
 ##Links
